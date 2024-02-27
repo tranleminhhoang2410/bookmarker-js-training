@@ -1,0 +1,17 @@
+@use '../../abstracts';
+
+.main-header {
+	padding-left: 16px;
+	padding-right: 16px;
+	@include abstracts.flex-layout(null, center, space-between);
+	border-bottom: 1px solid #ccc;
+
+	&-title {
+		@include abstracts.font('Lato-Regular', abstracts.$fs-sm);
+	}
+
+	@include abstracts.screen-size(992px) {
+		padding-left: 32px;
+		padding-right: 32px;
+	}
+}

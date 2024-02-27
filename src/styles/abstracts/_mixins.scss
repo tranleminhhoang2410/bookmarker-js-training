@@ -1,0 +1,51 @@
+@use './variables';
+
+@mixin screen-size($dimension, $bypass: false) {
+	@if $bypass {
+		@content;
+	} @else {
+		@media (min-width: $dimension) {
+			@content;
+		}
+	}
+}
+
+@mixin grid-items($row-items, $row-gap: null, $column-gaps: null) {
+	display: grid;
+	grid-template-columns: repeat($row-items, 1fr);
+	row-gap: $row-gap;
+	column-gap: $column-gaps;
+}
+
+@mixin size($width: null, $height: null) {
+	width: $width;
+	height: $height;
+}
+
+@mixin position($attribute, $top: null, $right: null, $bottom: null, $left: null) {
+	position: $attribute;
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+}
+
+@mixin font($fontFamily: null, $fontSize: null, $textColor: variables.$secondary-color) {
+	font-family: $fontFamily, sans-serif;
+	font-size: $fontSize;
+	color: $textColor;
+	line-height: 1.3;
+}
+
+@mixin flex-layout($direction: null, $alignItems: null, $justifyContent: null, $gap: null, $wrap: null) {
+	display: flex;
+	@if ($direction == null) {
+		flex-direction: row;
+	} @else {
+		flex-direction: $direction;
+	}
+	align-items: $alignItems;
+	justify-content: $justifyContent;
+	gap: $gap;
+	flex-wrap: $wrap;
+}

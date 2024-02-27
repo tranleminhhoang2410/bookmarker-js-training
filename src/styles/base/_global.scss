@@ -1,0 +1,37 @@
+@use '../abstracts';
+
+.container {
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 16px;
+	padding-right: 16px;
+}
+
+.section-layout {
+	padding-top: 32px;
+	padding-bottom: 32px;
+}
+
+button {
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.6;
+		transition: opacity linear 0.2s;
+	}
+}
+
+@each $breakpoint, $dimension in abstracts.$grid-breakpoints {
+	$max-width: map-get(abstracts.$container-max-widths, $breakpoint);
+	$book-items: map-get(abstracts.$book-items, $breakpoint);
+
+	@include abstracts.screen-size($dimension, $breakpoint == xs) {
+		.container {
+			max-width: $max-width;
+		}
+
+		.book-list {
+			@include abstracts.grid-items($book-items);
+		}
+	}
+}
