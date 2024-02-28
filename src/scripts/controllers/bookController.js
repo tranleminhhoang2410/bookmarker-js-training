@@ -1,23 +1,15 @@
 export default class BookController {
-    constructor(bookModel, bookView) {
-        this.bookModel = bookModel;
-        this.bookView = bookView;
-    }
+	constructor(bookModel, bookView) {
+		this.bookModel = bookModel;
+		this.bookView = bookView;
+	}
 
-    handleAddBook = async (data) => {
-        try {
-            await this.bookModel.addBook(data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+	async init() {
+		await this.onBookListChanged();
+	}
 
-    handleGetAllBooks = async () => {
-        try {
-            const response = await this.bookModel.getBooks();
-            return response;
-        } catch (error) {
-            console.log(error);
-        }
-    }
+	onBookListChanged = async () => {
+		const response = await this.bookModel.getBooks();
+		this.bookView.displayBooks(response);
+	};
 }

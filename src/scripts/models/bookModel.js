@@ -9,9 +9,12 @@ export default class BookModel {
 
 	getBooks = async () => {
 		const response = await getBooksService();
-		this.books = response;
-		return this.books;
+		return response;
 	};
+
+	bindFoodListChanged(callback) {
+		this.onFoodListChanged = callback;
+	}
 
 	updateBook = async (bookId, bookData) => await updateBookService(bookId, bookData);
 

@@ -1,16 +1,28 @@
+import { bookItemTemplate } from '../templates/book-item';
+import { createElement, getElement } from '../utils/ui-control';
+import forwardIcon from '../../assets/images/svg/right-forward.svg';
+import editIcon from '../../assets/images/svg/trash.svg';
+
 export default class BookView {
-    constructor() {
+	constructor() {
+		this.bookList = getElement('.book-list');
+	}
 
-        // Form
-        this.formBg = document.getElementById("add-form");
+	displayBooks = (books) => {
+		while (this.bookList.firstChild) {
+			this.bookList.removeChild(this.bookList.firstChild);
+		}
+		if (books.length === 0) {
+			const p = this.createElement('p');
+			p.textContent = 'No product here';
+			this.todoList.append(p);
+		} else {
+			books?.forEach((book) => {
+				const bookItem = createElement('li', 'book-item');
+				bookItem.innerHTML = bookItemTemplate(book, forwardIcon, editIcon);
 
-
-        // Button
-        this.btnAddBook = document.getElementById("add-btn");
-
-        // Another
-        this.jobUl = document.getElementById("book-list");
-
-    }
-
+				this.bookList.append(bookItem);
+			});
+		}
+	};
 }
