@@ -1,5 +1,47 @@
-import { PATH } from '../constants/base-url';
+import { API_PATH } from '../constants/api-path';
+import { request } from '../utils/request';
 
-export const addBookService = (newBook) => request(PATH, 'post', newBook);
+const bookApiPath = API_PATH.BOOKS;
 
-export const getBooksService = () => request(PATH, 'get');
+export const addBookService = async (bookData) => {
+	try {
+		await request(bookApiPath, 'POST', bookData);
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+export const getBooksService = async () => {
+	try {
+		const response = await request(bookApiPath, 'GET');
+		return response;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+export const getBookByIdService = async (bookId) => {
+	try {
+		const response = await request(`${bookApiPath}/${bookId}`, 'GET');
+		return response;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+export const updateBookService = async (bookId, bookData) => {
+	try {
+		const response = await request(`${bookApiPath}/${bookId}`, 'PUT', bookData);
+		return response;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+export const deleteBookService = async (bookId) => {
+	try {
+		await request(`${bookApiPath}/${bookId}`, 'DELETE');
+	} catch (error) {
+		throw new Error(error);
+	}
+};
