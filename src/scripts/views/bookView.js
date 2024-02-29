@@ -8,6 +8,16 @@ export default class BookView {
 		this.bookList = getElement('.book-list');
 	}
 
+	displaySkeletonBooks = (count) => {
+		this.bookList.innerHTML = '';
+		for (let i = 0; i < count; i++) {
+			const skeletonBookItem = createElement('li', 'book-item loading');
+			skeletonBookItem.innerHTML = bookItemTemplate();
+
+			this.bookList.append(skeletonBookItem);
+		}
+	};
+
 	displayBooks = (books) => {
 		while (this.bookList.firstChild) {
 			this.bookList.removeChild(this.bookList.firstChild);

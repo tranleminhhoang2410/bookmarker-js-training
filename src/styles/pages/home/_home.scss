@@ -80,6 +80,72 @@
 		}
 	}
 
+	.book-item {
+		&.loading {
+			background-color: #f4f4f4;
+
+			.book-primary-info {
+				flex: 0 0 60%;
+			}
+
+			.book-published-info {
+				flex: 0 0 30%;
+			}
+
+			.book-name,
+			.book-description,
+			.book-item-action-btn,
+			.book-published-time,
+			.book-published-image-frame {
+				position: relative;
+				overflow: hidden;
+			}
+
+			.book-name::before,
+			.book-description::before,
+			.book-item-action-btn::before,
+			.book-published-time::before,
+			.book-published-image-frame::before {
+				background-color: #dddddd;
+				content: '';
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+
+			.book-name::after,
+			.book-description::after,
+			.book-item-action-btn::after,
+			.book-published-time::after,
+			.book-published-image-frame::after {
+				content: '';
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(to right, #dddddd, #ffffff 50%, #dddddd);
+				animation: skeletonLoading 2s infinite alternate;
+			}
+
+			.book-name,
+			.book-published-time {
+				width: 100%;
+				height: 26px;
+			}
+			.book-description {
+				width: 100%;
+				height: 48px;
+			}
+		}
+	}
+
 	.book-item-link {
 		@include abstracts.flex-layout(null, null, space-between, 10px);
 		// Primary Info
@@ -129,9 +195,20 @@
 			@include abstracts.screen-size(768px) {
 				@include abstracts.font('Lato-Regular', abstracts.$fs-md);
 			}
+
+			&.loading {
+				width: 100%;
+				height: 26px;
+				background: linear-gradient(to right, #dddddd, #ffffff 50%, #dddddd);
+				animation: skeleton-loading 1s linear infinite alternate;
+			}
 		}
 		.book-published-info {
 			@include abstracts.flex-layout(column, center, null, 10px);
+
+			&.loading {
+				flex: 0 0 30%;
+			}
 		}
 		.book-published-image-frame {
 			@include abstracts.size(95px, 116px);
@@ -160,6 +237,15 @@
 				background-color: abstracts.$secondary-color;
 				color: abstracts.$white-color;
 			}
+		}
+	}
+
+	@keyframes skeletonLoading {
+		from {
+			left: -50%;
+		}
+		to {
+			left: 50%;
 		}
 	}
 }

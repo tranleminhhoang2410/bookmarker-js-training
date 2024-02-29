@@ -5,6 +5,7 @@ export default class BookController {
 	}
 
 	async init() {
+		this.bookView.displaySkeletonBooks(6);
 		await this.onBookListChanged();
 	}
 

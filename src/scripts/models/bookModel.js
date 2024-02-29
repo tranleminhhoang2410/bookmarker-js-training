@@ -12,10 +12,6 @@ export default class BookModel {
 		return response;
 	};
 
-	bindFoodListChanged(callback) {
-		this.onFoodListChanged = callback;
-	}
-
 	updateBook = async (bookId, bookData) => await updateBookService(bookId, bookData);
 
 	deleteBook = async (bookId) => await deleteBookService(bookId);
