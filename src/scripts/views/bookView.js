@@ -38,6 +38,13 @@ export default class BookView {
 				const bookItem = createElement('li', 'book-item');
 				bookItem.innerHTML = bookItemTemplate(book, forwardIcon, editIcon);
 
+				bookItem.querySelectorAll('.book-item-action-btn.view-details').forEach((button) => {
+					button.addEventListener('click', function (e) {
+						e.preventDefault();
+						const bookId = this.getAttribute('data-book-id');
+						window.location.href = `/book-details/${bookId}`;
+					});
+				});
 				this.bookList.append(bookItem);
 			});
 			const bookListWrapper = getElement('.book-list-wrapper');

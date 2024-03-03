@@ -146,7 +146,7 @@
 		}
 	}
 
-	.book-item-link {
+	.book-item {
 		@include abstracts.flex-layout(null, null, space-between, 10px);
 		// Primary Info
 		.book-primary-info {
