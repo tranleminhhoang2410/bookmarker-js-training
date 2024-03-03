@@ -1,0 +1,25 @@
+.btn {
+	cursor: pointer;
+}
+
+.btn:hover {
+	opacity: 0.6;
+}
+
+.btn-square {
+	width: 48px;
+	height: 48px;
+	border-radius: var(--square-button-border-radius);
+}
+
+.btn-rectangle {
+	border-radius: var(--rectangle-item-border-radius);
+}
+
+.btn-secondary {
+	background-color: var(--secondary-color);
+}
+
+.btn-danger {
+	background-color: var(--danger-color);
+}

@@ -1,0 +1,19 @@
+.pagination {
+	margin-top: 32px;
+}
+.pagination-list {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 16px;
+}
+
+.pagination-button {
+	background-color: var(--primary-color);
+	border-radius: var(--square-button-border-radius);
+	font-family: Lato-Regular, sans-serif;
+}
+.pagination-button.current {
+	background-color: var(--secondary-color);
+	color: var(--white-color);
+}

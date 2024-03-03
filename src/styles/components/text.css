@@ -1,0 +1,28 @@
+.text-heading {
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	line-clamp: 1;
+	color: #000;
+	-webkit-box-orient: vertical;
+	font-family: Lato-Bold, sans-serif;
+	font-size: var(--fs-md);
+	overflow: hidden;
+}
+.text-description {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	color: #000;
+	-webkit-box-orient: vertical;
+	font-family: Lato-Regular, sans-serif;
+	font-size: var(--fs-sm);
+	overflow: hidden;
+}
+.text-white {
+	color: var(--white-color);
+}
+@media (min-width: 768px) {
+	.text-description {
+		font-size: var(--fs-md);
+	}
+}

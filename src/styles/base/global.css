@@ -1,0 +1,28 @@
+:root {
+	/* Color */
+	--primary-color: #fabb18;
+	--secondary-color: #000;
+	--white-color: #fff;
+	--danger-color: #fa4848;
+	--cancel-color: #ccc;
+	--success-color: rgb(106, 200, 60, 0.54);
+	--fail-color: rgb(200, 60, 60, 0.54);
+	--blur-text-color: #d5d5d5;
+	--input-background-color: #f4f4f4;
+	--primary-loading-color: #d9d9d9;
+	--secondary-loading-color: #f4f4f4;
+
+	/* Font size */
+	--fs-sm: 16px;
+	--fs-md: 20px;
+	--fs-2md: 32px;
+	--fs-lg: 36px;
+
+	/* Border radius */
+	--image-frame-border-radius: 8px;
+	--square-button-border-radius: 10px;
+	--modal-border-radius: 15px;
+	--toast-border-radius: 15px;
+	--rectangle-item-border-radius: 20px;
+	--card-item-border-radius: 30px;
+}
