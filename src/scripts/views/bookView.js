@@ -3,9 +3,11 @@ import { createElement, getElement } from '../utils/ui-control';
 import forwardIcon from '../../assets/images/svg/right-forward.svg';
 import editIcon from '../../assets/images/svg/trash.svg';
 import { pagination } from '../templates/pagination';
+import { listEmpty } from '../templates/list-empty';
 
 export default class BookView {
 	constructor() {
+		this.bookListWrapper = getElement('.book-list-wrapper');
 		this.bookList = getElement('.book-list');
 	}
 
@@ -30,9 +32,10 @@ export default class BookView {
 			this.bookList.removeChild(this.bookList.firstChild);
 		}
 		if (booksInPage.length === 0) {
-			const p = createElement('p');
-			p.textContent = 'No product here';
-			this.bookList.append(p);
+			const bookListEmpty = createElement('div', 'book-list-empty');
+			bookListEmpty.innerHTML = listEmpty();
+			this.bookListWrapper.appendChild(bookListEmpty);
+			this.bookListWrapper.removeChild(this.bookList);
 		} else {
 			booksInPage?.forEach((book) => {
 				const bookItem = createElement('li', 'book-item');
@@ -45,7 +48,7 @@ export default class BookView {
 						window.location.href = `/book-details.html?id=${bookId}`;
 					});
 				});
-				this.bookList.append(bookItem);
+				this.bookList.appendChild(bookItem);
 			});
 			const bookListWrapper = getElement('.book-list-wrapper');
 			const paginationWrapper = createElement('div', 'pagination');
