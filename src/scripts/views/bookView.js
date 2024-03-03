@@ -42,7 +42,7 @@ export default class BookView {
 					button.addEventListener('click', function (e) {
 						e.preventDefault();
 						const bookId = this.getAttribute('data-book-id');
-						window.location.href = `/book-details/${bookId}`;
+						window.location.href = `/book-details.html?id=${bookId}`;
 					});
 				});
 				this.bookList.append(bookItem);
