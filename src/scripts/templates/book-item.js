@@ -1,3 +1,5 @@
+import placeholderBookImage from '../../assets/images/png/book-placeholder.png';
+
 export const bookItemTemplate = (book = {}, forwardIcon = '', editIcon = '') => {
 	const { name, description, imageUrl } = book;
 
@@ -19,7 +21,7 @@ export const bookItemTemplate = (book = {}, forwardIcon = '', editIcon = '') => 
 						<div class="book-published-info">
 							<span class="book-published-time">9:00 AM</span>
 							<figure class="book-published-image-frame">
-								<img loading="lazy" src=${imageUrl} alt="Book name" class="book-published-image" />
+								<img loading="lazy" src=${imageUrl || placeholderBookImage} alt="Book name" class="book-published-image" />
 							</figure>
 						</div>
 					</a>

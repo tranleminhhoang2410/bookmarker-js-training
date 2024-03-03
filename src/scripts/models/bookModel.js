@@ -7,9 +7,12 @@ export default class BookModel {
 
 	addBook = async (bookData) => await addBookService(bookData);
 
-	getBooks = async () => {
-		const response = await getBooksService();
-		return response;
+	getBooks = async (currentPage = 1, itemPerPage = 6) => {
+		const queryParams = new URLSearchParams({ _page: currentPage, _limit: itemPerPage });
+		const response = await getBooksService(queryParams);
+		const books = await response.books;
+		const totalBooks = response.totalBooks;
+		return { books, totalBooks };
 	};
 
 	updateBook = async (bookId, bookData) => await updateBookService(bookId, bookData);

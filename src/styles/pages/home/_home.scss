@@ -150,7 +150,7 @@
 		@include abstracts.flex-layout(null, null, space-between, 10px);
 		// Primary Info
 		.book-primary-info {
-			@include abstracts.flex-layout(column, flex-start, null, 10px);
+			@include abstracts.flex-layout(column, flex-start, space-between, 10px);
 		}
 		.book-name {
 			display: -webkit-box;

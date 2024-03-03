@@ -11,6 +11,6 @@ export default class BookController {
 
 	onBookListChanged = async () => {
 		const response = await this.bookModel.getBooks();
-		this.bookView.displayBooks(response);
+		this.bookView.displayBooks(response.books, response.totalBooks);
 	};
 }

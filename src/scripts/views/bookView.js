@@ -2,6 +2,7 @@ import { bookItemTemplate } from '../templates/book-item';
 import { createElement, getElement } from '../utils/ui-control';
 import forwardIcon from '../../assets/images/svg/right-forward.svg';
 import editIcon from '../../assets/images/svg/trash.svg';
+import { pagination } from '../templates/pagination';
 
 export default class BookView {
 	constructor() {
@@ -10,29 +11,39 @@ export default class BookView {
 
 	displaySkeletonBooks = (count) => {
 		this.bookList.innerHTML = '';
-		for (let i = 0; i < count; i++) {
-			const skeletonBookItem = createElement('li', 'book-item loading');
-			skeletonBookItem.innerHTML = bookItemTemplate();
+		if (count === 0) {
+			const p = createElement('p');
+			p.textContent = 'No product here';
+			this.bookList.append(p);
+		} else {
+			for (let i = 0; i < count; i++) {
+				const skeletonBookItem = createElement('li', 'book-item loading');
+				skeletonBookItem.innerHTML = bookItemTemplate();
 
-			this.bookList.append(skeletonBookItem);
+				this.bookList.append(skeletonBookItem);
+			}
 		}
 	};
 
-	displayBooks = (books) => {
+	displayBooks = (booksInPage, totalBooks) => {
 		while (this.bookList.firstChild) {
 			this.bookList.removeChild(this.bookList.firstChild);
 		}
-		if (books.length === 0) {
-			const p = this.createElement('p');
+		if (booksInPage.length === 0) {
+			const p = createElement('p');
 			p.textContent = 'No product here';
-			this.todoList.append(p);
+			this.bookList.append(p);
 		} else {
-			books?.forEach((book) => {
+			booksInPage?.forEach((book) => {
 				const bookItem = createElement('li', 'book-item');
 				bookItem.innerHTML = bookItemTemplate(book, forwardIcon, editIcon);
 
 				this.bookList.append(bookItem);
 			});
+			const bookListWrapper = getElement('.book-list-wrapper');
+			const paginationWrapper = createElement('div', 'pagination');
+			paginationWrapper.innerHTML = pagination(1, totalBooks, 6);
+			bookListWrapper.append(paginationWrapper);
 		}
 	};
 }
