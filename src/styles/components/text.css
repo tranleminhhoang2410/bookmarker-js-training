@@ -1,12 +1,12 @@
 .text-heading {
-	display: -webkit-box;
-	-webkit-line-clamp: 1;
-	line-clamp: 1;
 	color: #000;
-	-webkit-box-orient: vertical;
 	font-family: Lato-Bold, sans-serif;
 	font-size: var(--fs-md);
-	overflow: hidden;
+}
+.text-sub-heading {
+	color: #000;
+	font-family: Lato-Bold, sans-serif;
+	font-size: var(--fs-sm);
 }
 .text-description {
 	display: -webkit-box;
@@ -21,6 +21,20 @@
 .text-white {
 	color: var(--white-color);
 }
+.text-truncate {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.text-truncate.sm {
+	-webkit-line-clamp: 1;
+	line-clamp: 1;
+}
+.text-truncate.md {
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+}
+
 @media (min-width: 768px) {
 	.text-description {
 		font-size: var(--fs-md);

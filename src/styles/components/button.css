@@ -23,3 +23,7 @@
 .btn-danger {
 	background-color: var(--danger-color);
 }
+
+.btn-cancel {
+	background-color: var(--cancel-color);
+}

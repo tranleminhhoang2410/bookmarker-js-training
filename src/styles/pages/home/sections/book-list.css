@@ -13,6 +13,7 @@
 	background-color: var(--primary-color);
 	border-radius: var(--card-item-border-radius);
 	padding: 32px 16px;
+	gap: 12px;
 }
 
 .book-primary-info {

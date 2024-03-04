@@ -5,8 +5,8 @@ export const bookItemTemplate = (book = {}, forwardIcon = '', editIcon = '') => 
 
 	return ` 
         <div class="book-primary-info">
-            <h2 class="book-name text-heading">${name}</h2>
-            <p class="book-description text-description">
+            <h2 class="book-name text-heading text-truncate sm">${name}</h2>
+            <p class="book-description text-description text-truncate md">
                 ${description}
             </p>
             <div class="book-item-action">
