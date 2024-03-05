@@ -9,6 +9,7 @@ export default class BookView {
 	constructor() {
 		this.bookListWrapper = getElement('.book-list-wrapper');
 		this.bookList = getElement('.book-list');
+		this.createBtn = getElement('.btn-create');
 	}
 
 	displaySkeletonBooks = (count) => {
