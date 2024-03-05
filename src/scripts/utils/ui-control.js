@@ -10,3 +10,8 @@ export const getElement = (selector) => {
 	const element = document.querySelector(selector);
 	return element;
 };
+
+export const getAllElements = (selector) => {
+	const elements = document.querySelectorAll(selector);
+	return elements;
+};

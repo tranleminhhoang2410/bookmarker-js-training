@@ -1,3 +1,5 @@
+import uploadIcon from '../../assets/images/svg/upload.svg';
+
 export const mutationFormTemplate = () => {
 	return `
     <form class="mutation-form">
@@ -18,7 +20,7 @@ export const mutationFormTemplate = () => {
 	        <div class="input-group book-image">
 		        <label for="book-image" class="input-label text-sub-heading">Image</label>
 		        <button type="button" class="btn btn-secondary btn-upload">
-			        <img src="../assets/images/svg/upload.svg" alt="upload" />
+			        <img src=${uploadIcon} alt="upload" />
 			        <span class="btn-upload-text text-sub-heading text-white">Upload</span>
 		        </button>
 		        <input type="file" class="input-box" name="book-image" placeholder="Book name" />
@@ -29,8 +31,8 @@ export const mutationFormTemplate = () => {
 	        </div>
         </div>
         <div class="form-action">
-	        <button class="btn btn-cancel btn-action text-sub-heading text-white">Cancel</button>
-	        <button class="btn btn-secondary btn-action text-sub-heading text-white">Save</button>
+	        <button type='button' class="btn btn-cancel btn-action text-sub-heading text-white">Cancel</button>
+	        <button type='submit' class="btn btn-secondary btn-action text-sub-heading text-white">Save</button>
         </div>
 			</form>
   `;

@@ -1,16 +1,42 @@
 import { bookItemTemplate } from '../templates/book-item';
-import { createElement, getElement } from '../utils/ui-control';
+import { createElement, getAllElements, getElement } from '../utils/ui-control';
 import forwardIcon from '../../assets/images/svg/right-forward.svg';
 import editIcon from '../../assets/images/svg/trash.svg';
 import { pagination } from '../templates/pagination';
 import { listEmpty } from '../templates/list-empty';
+import { mutationFormTemplate } from '../templates/mutation-form';
 
 export default class BookView {
 	constructor() {
+		this.content = getElement('.content');
 		this.bookListWrapper = getElement('.book-list-wrapper');
 		this.bookList = getElement('.book-list');
+		this.bookItem = getElement('.book-item');
 		this.createBtn = getElement('.btn-create');
+
+		this._initEventListener();
 	}
+
+	_initEventListener = () => {
+		//Open modal when click on create button
+		this.createBtn.addEventListener('click', () => {
+			const createModal = createElement('div', 'modal show');
+			const createModalContent = createElement('div', 'modal-content container');
+			createModalContent.innerHTML = mutationFormTemplate();
+
+			createModal.appendChild(createModalContent);
+			this.content.appendChild(createModal);
+
+			_closeModal(createModal);
+		});
+
+		const _closeModal = (modalType) => {
+			const cancelBtn = getElement('.btn-cancel');
+			cancelBtn.addEventListener('click', () => {
+				this.content.removeChild(modalType);
+			});
+		};
+	};
 
 	displaySkeletonBooks = (count) => {
 		this.bookList.innerHTML = '';
@@ -41,14 +67,7 @@ export default class BookView {
 			booksInPage?.forEach((book) => {
 				const bookItem = createElement('li', 'book-item');
 				bookItem.innerHTML = bookItemTemplate(book, forwardIcon, editIcon);
-
-				bookItem.querySelectorAll('.book-item-action-btn.view-details').forEach((button) => {
-					button.addEventListener('click', function (e) {
-						e.preventDefault();
-						const bookId = this.getAttribute('data-book-id');
-						window.location.href = `/book-details.html?id=${bookId}`;
-					});
-				});
+				bookItem.setAttribute('data-book-id', book.id);
 				this.bookList.appendChild(bookItem);
 			});
 			const bookListWrapper = getElement('.book-list-wrapper');
