@@ -40,6 +40,13 @@
 .book-details-info-item {
 	color: #b5b5b5;
 	font-family: 'Lato-Regular';
+	font-size: var(--fs-sm);
+}
+
+.show-description-btn {
+	background-color: transparent;
+	color: var(--primary-color);
+	font-size: var(--fs-sm);
 }
 
 .book-details-info-list {
@@ -57,9 +64,9 @@
 @media (min-width: 768px) {
 	.book-details {
 		flex-direction: row-reverse;
+		align-items: flex-start;
 	}
-	.book-details-image-action,
-	.book-details-info {
-		flex-direction: column;
+	.book-details-image-action {
+		flex-direction: column-reverse;
 	}
 }
