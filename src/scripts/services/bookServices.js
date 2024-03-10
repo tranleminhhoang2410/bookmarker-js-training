@@ -14,8 +14,7 @@ export const addBookService = async (bookData) => {
 export const getBooksService = async (queryParams) => {
 	try {
 		const response = queryParams ? await request(`${bookApiPath}?${queryParams}`, 'GET') : await request(bookApiPath, 'GET');
-		const totalBooks = response.totalCount;
-		return { books: response.data, totalBooks };
+		return response;
 	} catch (error) {
 		throw new Error(error);
 	}

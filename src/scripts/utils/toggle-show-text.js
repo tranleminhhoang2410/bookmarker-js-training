@@ -1,44 +1,33 @@
-import { createElement } from './ui-control';
-
-export const toggleShowText = (selector, originalText, limitCharacters) => {
-	const textContainer = document.querySelector(selector);
-	let isShowingMore = false;
-
-	// Create text & button element
-	const textElement = createElement('span');
-	const button = createElement('button', 'btn show-description-btn');
-
-	// Set original content for text & button
-	let limitedText = '';
+export const toggleShowText = (originalText, limitCharacters) => {
+	let showMoreHtml = '';
 
 	if (originalText.length <= limitCharacters) {
-		textElement.textContent = originalText;
+		showMoreHtml = `<span>${originalText}</span>`;
 	} else {
-		limitedText = originalText.slice(0, limitCharacters) + ' ';
-		textElement.textContent = limitedText;
-		button.textContent = 'show more';
+		const limitedText = originalText.slice(0, limitCharacters) + '...';
+		showMoreHtml = `
+            <span class="text-content">${limitedText}</span>
+            <button class="btn show-description-btn show-more" onclick="toggleText(this, '${originalText}', ${limitCharacters})">show more</button>
+        `;
 	}
 
-	// Append text & button for textContainer
-	textContainer.innerHTML = '';
-	textContainer.appendChild(textElement);
-	textContainer.appendChild(button);
-
-	// Handle click on show more & show less button
-	button.addEventListener('click', function () {
-		if (!isShowingMore) {
-			textElement.textContent = originalText + ' ';
-			button.textContent = 'show less';
-		} else {
-			textElement.textContent = limitedText;
-			button.textContent = 'show more';
-		}
-		isShowingMore = !isShowingMore; // Toggle showing state
-	});
+	return showMoreHtml;
 };
 
-toggleShowText(
-	'p.book-details-description',
-	'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam provident nobis nisi a quam tempore necessitatibus, voluptatum fuga repellendus deserunt ex officiis, perferendis fugiat aliquam cupiditate fugit, quod totam commodi?',
-	50
-);
+window.toggleText = (element, fullText, limit) => {
+	const parentNode = element.parentNode;
+	const isShowingLess = element.classList.contains('show-more');
+
+	if (isShowingLess) {
+		parentNode.innerHTML = `
+			<span>${fullText}</span> 
+			<button class="btn show-description-btn show-less" onclick="toggleText(this, '${fullText}', ${limit})">show less</button>
+		`;
+	} else {
+		const limitedText = fullText.slice(0, limit) + '...';
+		parentNode.innerHTML = `
+			<span>${limitedText}</span> 
+			<button class="btn show-description-btn show-more" onclick="toggleText(this, '${fullText}', ${limit})">show more</button>
+		`;
+	}
+};

@@ -54,26 +54,22 @@ export default class BookView {
 		}
 	};
 
-	displayBooks = (booksInPage, totalBooks) => {
+	displayBooks = (books) => {
 		while (this.bookList.firstChild) {
 			this.bookList.removeChild(this.bookList.firstChild);
 		}
-		if (booksInPage.length === 0) {
+		if (books.length === 0) {
 			const bookListEmpty = createElement('div', 'book-list-empty');
 			bookListEmpty.innerHTML = listEmpty();
 			this.bookListWrapper.appendChild(bookListEmpty);
 			this.bookListWrapper.removeChild(this.bookList);
 		} else {
-			booksInPage?.forEach((book) => {
+			books.forEach((book) => {
 				const bookItem = createElement('li', 'book-item');
 				bookItem.innerHTML = bookItemTemplate(book, forwardIcon, editIcon);
 				bookItem.setAttribute('data-book-id', book.id);
 				this.bookList.appendChild(bookItem);
 			});
-			const bookListWrapper = getElement('.book-list-wrapper');
-			const paginationWrapper = createElement('div', 'pagination');
-			paginationWrapper.innerHTML = pagination(1, totalBooks, 6);
-			bookListWrapper.append(paginationWrapper);
 		}
 	};
 }

@@ -11,10 +11,7 @@ export const request = async (path, method, data) => {
 	});
 
 	if (response.ok) {
-		return {
-			data: response.json(),
-			totalCount: response.headers.get('X-Total-Count')
-		};
+		return response.json();
 	} else {
 		throw new Error('Error while sending request');
 	}
