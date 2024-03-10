@@ -1,3 +1,4 @@
+import { timeFormat } from '../utils/timeFormat';
 import { toggleShowText } from '../utils/toggle-show-text';
 
 export const bookDetailsTemplate = (book = {}, forwardIcon = '', deleteIcon = '', editIcon = '') => {
@@ -33,7 +34,7 @@ export const bookDetailsTemplate = (book = {}, forwardIcon = '', deleteIcon = ''
 					<ul class="book-details-info-list">
 						<li class="book-details-info-item">
 							<span>Author: </span>
-							<span>${authors}</span>
+							<span>${authors.join(', ')}</span>
 						</li>
 						<li class="book-details-info-item">
 							<span>Published date: </span>
@@ -41,11 +42,11 @@ export const bookDetailsTemplate = (book = {}, forwardIcon = '', deleteIcon = ''
 						</li>
 						<li class="book-details-info-item">
 							<span>Created at: </span>
-							<span>${createdAt}</span>
+							<span>${timeFormat(parseInt(createdAt))}</span>
 						</li>
 						<li class="book-details-info-item">
 							<span>Updated at: </span>
-							<span>${updatedAt}</span>
+							<span>${timeFormat(parseInt(updatedAt))}</span>
 						</li>
 					</ul>
   `;
