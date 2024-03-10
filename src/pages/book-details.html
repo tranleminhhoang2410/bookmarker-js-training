@@ -3,9 +3,61 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>Book Marker</title>
+		<link rel="stylesheet" href="../styles/pages/book-details/main.css" />
+		<link href="../assets/favicon/favicon.ico" rel="icon" type="image/x-icon" />
 	</head>
 	<body>
-		This is book details
+		<header class="main-header section-layout">
+			<a href="/" class="main-header-link">
+				<img src="../assets/images/svg/book-marker-logo.svg" alt="Book Marker Logo" />
+			</a>
+			<h1 class="main-header-title">Hello! Welcome to the Book Marker</h1>
+		</header>
+		<main class="content section-layout">
+			<section class="book-details container">
+				<div class="book-details-image-action">
+					<figure class="book-details-image-frame">
+						<img src="../assets/images/png/book-placeholder.png" alt="book name" class="book-details-image" />
+					</figure>
+					<div class="book-details-action">
+						<button class="btn btn-square btn-secondary">
+							<img loading="lazy" src="../assets/images/svg/left-forward.svg" alt="Back" />
+						</button>
+						<button class="btn btn-square btn-danger">
+							<img loading="lazy" src="../assets/images/svg/trash.svg" alt="Delete" />
+						</button>
+						<button class="btn btn-rectangle btn-secondary btn-edit">
+							<img src="../assets/images/svg/edit.svg" alt="Edit" />
+							<span class="create-btn-text text-description text-white">Edit</span>
+						</button>
+					</div>
+				</div>
+				<div class="book-details-info">
+					<h2 class="text-heading book-details-heading">HTML/CSS book name will displayed here, test with a long text, will display full</h2>
+					<p class="text-description book-details-description">
+						Will show full description here, with a long text, will limit about 200 character. Then will display the show more/show less for it. You can see this ex
+					</p>
+					<ul class="book-details-info-list">
+						<li class="book-details-info-item">
+							<span>Author: </span>
+							<span>Cu.Nguyen</span>
+						</li>
+						<li class="book-details-info-item">
+							<span>Published date: </span>
+							<span>9:54 AM, 03/27/2023</span>
+						</li>
+						<li class="book-details-info-item">
+							<span>Created at: </span>
+							<span>9:54 AM, 03/27/2023</span>
+						</li>
+						<li class="book-details-info-item">
+							<span>Updated at: </span>
+							<span>9:54 AM, 03/27/2023</span>
+						</li>
+					</ul>
+				</div>
+			</section>
+		</main>
 	</body>
 </html>
