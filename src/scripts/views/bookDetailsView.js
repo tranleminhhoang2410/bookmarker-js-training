@@ -1,15 +1,19 @@
 import { bookDetailsTemplate } from '../templates/book-details';
+import { serverErrorTemplate } from '../templates/server-error';
 import { getElement } from '../utils/ui-control';
-import forwardIcon from '../../assets/images/svg/left-forward.svg';
-import deleteIcon from '../../assets/images/svg/trash.svg';
-import editIcon from '../../assets/images/svg/edit.svg';
 
 export default class BookDetailsView {
 	constructor() {
+		this.mainContent = getElement('.content');
 		this.bookDetails = getElement('.book-details');
 	}
 
+	bindServerError() {
+		this.mainContent.removeChild(this.bookDetails);
+		this.mainContent.innerHTML = serverErrorTemplate();
+	}
+
 	bindGetBookDetails(book) {
-		this.bookDetails.innerHTML = bookDetailsTemplate(book, forwardIcon, deleteIcon, editIcon);
+		this.bookDetails.innerHTML = bookDetailsTemplate(book);
 	}
 }

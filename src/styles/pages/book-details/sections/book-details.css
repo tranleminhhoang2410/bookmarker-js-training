@@ -34,6 +34,7 @@
 
 .book-details-info {
 	align-items: flex-start;
+	flex: 1;
 }
 
 .book-details-description,

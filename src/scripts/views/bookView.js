@@ -1,7 +1,5 @@
 import { bookItemTemplate } from '../templates/book-item';
-import { createElement, getAllElements, getElement } from '../utils/ui-control';
-import forwardIcon from '../../assets/images/svg/right-forward.svg';
-import editIcon from '../../assets/images/svg/trash.svg';
+import { createElement, getElement } from '../utils/ui-control';
 import { pagination } from '../templates/pagination';
 import { listEmpty } from '../templates/list-empty';
 import { mutationFormTemplate } from '../templates/mutation-form';

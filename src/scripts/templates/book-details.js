@@ -1,7 +1,10 @@
 import { timeFormat } from '../utils/timeFormat';
 import { toggleShowText } from '../utils/toggle-show-text';
+import forwardIcon from '../../assets/images/svg/left-forward.svg';
+import deleteIcon from '../../assets/images/svg/trash.svg';
+import editIcon from '../../assets/images/svg/edit.svg';
 
-export const bookDetailsTemplate = (book = {}, forwardIcon = '', deleteIcon = '', editIcon = '') => {
+export const bookDetailsTemplate = (book = {}) => {
 	const { name, description, authors, imageUrl, publishedDate, createdAt, updatedAt } = book;
 
 	const descriptionRender = toggleShowText(description, 200);

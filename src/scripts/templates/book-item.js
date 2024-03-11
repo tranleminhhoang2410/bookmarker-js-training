@@ -1,6 +1,8 @@
 import placeholderBookImage from '../../assets/images/png/book-placeholder.png';
+import forwardIcon from '../../assets/images/svg/right-forward.svg';
+import editIcon from '../../assets/images/svg/trash.svg';
 
-export const bookItemTemplate = (book = {}, forwardIcon = '', editIcon = '') => {
+export const bookItemTemplate = (book = {}) => {
 	const { id, name, description, imageUrl } = book;
 
 	return ` 

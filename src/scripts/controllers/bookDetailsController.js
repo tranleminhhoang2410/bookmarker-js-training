@@ -10,7 +10,12 @@ export default class BookDetailsController {
 
 	displayBookDetails = async () => {
 		const bookId = window.location.search.slice(4);
-		const response = await this.bookDetailsModel.getBookById(bookId);
-		this.bookDetailsView.bindGetBookDetails(response);
+		try {
+			const response = await this.bookDetailsModel.getBookById(bookId);
+			this.bookDetailsView.bindGetBookDetails(response);
+		} catch (error) {
+			this.bookDetailsView.bindServerError();
+			throw new Error(error);
+		}
 	};
 }

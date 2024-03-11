@@ -9,7 +9,6 @@ export const request = async (path, method, data) => {
 		},
 		body: JSON.stringify(data)
 	});
-
 	if (response.ok) {
 		return response.json();
 	} else {

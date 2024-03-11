@@ -1,0 +1,29 @@
+.server-error-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 32px;
+}
+
+.server-error-heading {
+	font-family: 'Lato-Bold';
+	font-size: var(--fs-lg);
+}
+
+.server-error-message {
+	font-family: 'Lato-Regular';
+	font-size: var(--fs-2md);
+	text-align: center;
+	color: #b5b5b5;
+}
+
+.back-link {
+	font-family: 'Lato-Regular';
+	font-size: var(--fs-md);
+	color: var(--primary-color);
+}
+
+.back-link:hover {
+	opacity: 0.6;
+}
