@@ -20,8 +20,8 @@ export const bookDetailsTemplate = (book = {}) => {
                 <img loading="lazy" src=${forwardIcon} alt="Back" />
               </a>
 						</button>
-						<button class="btn btn-square btn-danger">
-							<img loading="lazy" src=${deleteIcon} alt="Delete" />
+						<button class="btn btn-square btn-danger btn-delete">
+							<img class="delete-icon" loading="lazy" src=${deleteIcon} alt="Delete" />
 						</button>
 						<button class="btn btn-rectangle btn-secondary btn-edit">
 							<img src=${editIcon} alt="Edit" />

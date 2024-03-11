@@ -6,6 +6,7 @@ export default class BookDetailsController {
 
 	async init() {
 		await this.displayBookDetails();
+		this.bookDetailsView.bindDeleteBook(this.handleDeleteBook);
 	}
 
 	displayBookDetails = async () => {
@@ -17,5 +18,10 @@ export default class BookDetailsController {
 			this.bookDetailsView.bindServerError();
 			throw new Error(error);
 		}
+	};
+
+	handleDeleteBook = async (bookId) => {
+		await this.bookDetailsModel.deleteBook(bookId);
+		window.location.href = '/';
 	};
 }

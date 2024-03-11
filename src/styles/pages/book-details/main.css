@@ -9,6 +9,7 @@
 @import url('../../../styles/components/modal.css');
 @import url('../../../styles/components/mutation-form.css');
 @import url('../../../styles/components/server-error.css');
+@import url('../../../styles/components/confirm-dialog.css');
 
 /* Layouts */
 @import url('../../../styles/layouts/common/container.css');

@@ -64,7 +64,7 @@ export default class BookView {
 		} else {
 			books.forEach((book) => {
 				const bookItem = createElement('li', 'book-item');
-				bookItem.innerHTML = bookItemTemplate(book, forwardIcon, editIcon);
+				bookItem.innerHTML = bookItemTemplate(book);
 				bookItem.setAttribute('data-book-id', book.id);
 				this.bookList.appendChild(bookItem);
 			});
