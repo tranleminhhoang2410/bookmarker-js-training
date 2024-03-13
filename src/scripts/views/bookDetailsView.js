@@ -1,6 +1,9 @@
+import { TOAST } from '../constants/toast';
 import { bookDetailsTemplate } from '../templates/book-details';
 import { confirmDialogTemplate } from '../templates/confirm-dialog';
 import { serverErrorTemplate } from '../templates/server-error';
+import { toastMessageTemplate } from '../templates/toast-message';
+import { showToast } from '../utils/toast-control';
 import { createElement, getElement } from '../utils/ui-control';
 
 export default class BookDetailsView {
@@ -37,7 +40,16 @@ export default class BookDetailsView {
 				confirmDeleteBtn.addEventListener('click', (e) => {
 					e.preventDefault();
 					handler(bookId);
+
+					//Close confirm modal
 					confirmModal.remove();
+
+					//Show toast
+					const toastSelector = createElement('div', 'toast success');
+					this.mainContent.append(toastSelector);
+					showToast(toastSelector, toastMessageTemplate(TOAST.MESSAGE.SUCCESS, TOAST.DESCRIPTION.DELETE), 3000);
+
+					//Navigate to home
 					window.location.href = '/';
 				});
 			}

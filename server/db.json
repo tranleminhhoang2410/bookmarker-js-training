@@ -27,45 +27,6 @@
       "deletedAt": null
     },
     {
-      "id": 6,
-      "name": "Object-oriented Programming with Java",
-      "description": "Appealing to programmers and non-programmers alike, this complete introduction to Java shows students how to use this versatile and popular object-oriented programming language as a primary tool in many different aspects of their programming work (not just for creating programs with graphical content within Web pages), and includes complete descriptions of the fundamental elements of Java with step-by-step instructions on how to compile and run a program. ",
-      "authors": [
-        "David J. Barnes"
-      ],
-      "imageUrl": "http://books.google.com/books/content?id=uX5GAAAAYAAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-      "publishedDate": "2000-04-01",
-      "createdAt": "1680658968240",
-      "updatedAt": "1680658968240",
-      "deletedAt": null
-    },
-    {
-      "id": 7,
-      "name": "Guide to HTML, JavaScript and PHP",
-      "description": "For Scientists and Engineers",
-      "authors": [
-        "David R. Brooks"
-      ],
-      "imageUrl": "http://books.google.com/books/content?id=NTh1O5X47FEC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-      "publishedDate": "2011-05-16",
-      "createdAt": "1680658968245",
-      "updatedAt": "1680658968245",
-      "deletedAt": null
-    },
-    {
-      "id": 8,
-      "name": "HTML and CSS",
-      "description": "Design and Build Websites",
-      "authors": [
-        "Jon Duckett"
-      ],
-      "imageUrl": "http://books.google.com/books/content?id=aGjaBTbT0o0C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-      "publishedDate": "2011-01-18",
-      "createdAt": "1680658968260",
-      "updatedAt": "1680658968260",
-      "deletedAt": null
-    },
-    {
       "id": 9,
       "name": "Decoding JavaScript",
       "description": "A Simple Guide for the Not-so-Simple JavaScript Concepts, Libraries, Tools, and Frameworks (English Edition)",
@@ -106,20 +67,6 @@
       "publishedDate": "2011-05-13",
       "createdAt": "1680658968299",
       "updatedAt": "1680658968299",
-      "deletedAt": null
-    },
-    {
-      "id": 12,
-      "name": "React Js",
-      "description": "Hands-On Full Stack Web Development Using React Js, 2nd Edition",
-      "authors": [
-        "Nln Lnc",
-        "Susan Fitzgerald"
-      ],
-      "imageUrl": "",
-      "publishedDate": "2020-10-14",
-      "createdAt": "1680658968269",
-      "updatedAt": "1680658968269",
       "deletedAt": null
     },
     {

@@ -4,6 +4,9 @@ import { pagination } from '../templates/pagination';
 import { listEmpty } from '../templates/list-empty';
 import { mutationFormTemplate } from '../templates/mutation-form';
 import { confirmDialogTemplate } from '../templates/confirm-dialog';
+import { showToast } from '../utils/toast-control';
+import { toastMessageTemplate } from '../templates/toast-message';
+import { TOAST } from '../constants/toast';
 
 export default class BookView {
 	constructor() {
@@ -70,9 +73,15 @@ export default class BookView {
 
 				const confirmDeleteBtn = getElement('.confirm-btn');
 
-				confirmDeleteBtn.addEventListener('click', (e) => {
+				confirmDeleteBtn.addEventListener('click', () => {
 					handler(bookId);
+					//Close modal
 					confirmModal.remove();
+
+					//Show toast
+					const toastSelector = createElement('div', 'toast success');
+					this.mainContent.append(toastSelector);
+					showToast(toastSelector, toastMessageTemplate(TOAST.MESSAGE.SUCCESS, TOAST.DESCRIPTION.DELETE), 3000);
 				});
 			}
 		});
