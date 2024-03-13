@@ -5,12 +5,17 @@ export default class BookController {
 	}
 
 	async init() {
-		this.bookView.displaySkeletonBooks(6);
 		await this.onBookListChanged();
+		this.bookView.bindDeleteBook(this.handleDeleteBook);
 	}
 
 	onBookListChanged = async () => {
 		const response = await this.bookModel.getBooks();
 		this.bookView.displayBooks(response);
+	};
+
+	handleDeleteBook = async (bookId) => {
+		await this.bookModel.deleteBook(bookId);
+		await this.onBookListChanged();
 	};
 }

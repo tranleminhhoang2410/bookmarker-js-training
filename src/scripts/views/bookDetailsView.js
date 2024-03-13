@@ -7,30 +7,6 @@ export default class BookDetailsView {
 	constructor() {
 		this.mainContent = getElement('.content');
 		this.bookDetails = getElement('.book-details');
-
-		this._initEventListeners();
-	}
-
-	_initEventListeners() {
-		//Open confirm Modal
-		this.bookDetails.addEventListener('click', (e) => {
-			e.preventDefault();
-			if (e.target.className.includes('btn-delete') || e.target.className.includes('delete-icon')) {
-				const confirmModal = createElement('div', 'modal show');
-				const confirmModalContent = createElement('div', 'modal-content container');
-				confirmModalContent.innerHTML = confirmDialogTemplate();
-				confirmModal.appendChild(confirmModalContent);
-				this.mainContent.append(confirmModal);
-			}
-		});
-
-		//Close modal
-		this.mainContent.addEventListener('click', (e) => {
-			if (e.target.className === 'cancel-btn') {
-				const modal = getElement('.modal');
-				modal.remove();
-			}
-		});
 	}
 
 	bindServerError() {
@@ -44,9 +20,26 @@ export default class BookDetailsView {
 
 	bindDeleteBook(handler) {
 		this.mainContent.addEventListener('click', (e) => {
-			if (e.target.className.includes('confirm-btn')) {
+			let targetElement = e.target;
+			if (targetElement.className.includes('delete-icon')) {
+				targetElement = e.target.parentElement;
+			}
+			if (targetElement.className.includes('btn-delete')) {
 				const bookId = parseInt(window.location.search.slice(4));
-				handler(bookId);
+				const confirmModal = createElement('div', 'modal show');
+				const confirmModalContent = createElement('div', 'modal-content container');
+				confirmModalContent.innerHTML = confirmDialogTemplate();
+				confirmModal.appendChild(confirmModalContent);
+				this.mainContent.append(confirmModal);
+
+				const confirmDeleteBtn = getElement('.confirm-btn');
+
+				confirmDeleteBtn.addEventListener('click', (e) => {
+					e.preventDefault();
+					handler(bookId);
+					confirmModal.remove();
+					window.location.href = '/';
+				});
 			}
 		});
 	}

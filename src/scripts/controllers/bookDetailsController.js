@@ -22,6 +22,5 @@ export default class BookDetailsController {
 
 	handleDeleteBook = async (bookId) => {
 		await this.bookDetailsModel.deleteBook(bookId);
-		window.location.href = '/';
 	};
 }

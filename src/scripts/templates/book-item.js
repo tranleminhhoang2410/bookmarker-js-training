@@ -17,8 +17,8 @@ export const bookItemTemplate = (book = {}) => {
                       <img loading="lazy" src=${forwardIcon} alt="View Details" />
                     </a>
                 </button>
-                <button class="btn btn-square btn-danger">
-                    <img loading="lazy" src=${editIcon} alt="Delete" />
+                <button class="btn btn-square btn-danger btn-delete">
+                    <img class="delete-icon" loading="lazy" src=${editIcon} alt="Delete" />
                 </button>
             </div>
         </div>

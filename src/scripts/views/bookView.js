@@ -3,13 +3,13 @@ import { createElement, getElement } from '../utils/ui-control';
 import { pagination } from '../templates/pagination';
 import { listEmpty } from '../templates/list-empty';
 import { mutationFormTemplate } from '../templates/mutation-form';
+import { confirmDialogTemplate } from '../templates/confirm-dialog';
 
 export default class BookView {
 	constructor() {
-		this.content = getElement('.content');
+		this.mainContent = getElement('.content');
 		this.bookListWrapper = getElement('.book-list-wrapper');
 		this.bookList = getElement('.book-list');
-		this.bookItem = getElement('.book-item');
 		this.createBtn = getElement('.btn-create');
 
 		this._initEventListener();
@@ -23,33 +23,16 @@ export default class BookView {
 			createModalContent.innerHTML = mutationFormTemplate();
 
 			createModal.appendChild(createModalContent);
-			this.content.appendChild(createModal);
-
-			_closeModal(createModal);
+			this.mainContent.appendChild(createModal);
 		});
 
-		const _closeModal = (modalType) => {
-			const cancelBtn = getElement('.btn-cancel');
-			cancelBtn.addEventListener('click', () => {
-				this.content.removeChild(modalType);
-			});
-		};
-	};
-
-	displaySkeletonBooks = (count) => {
-		this.bookList.innerHTML = '';
-		if (count === 0) {
-			const p = createElement('p');
-			p.textContent = 'No product here';
-			this.bookList.append(p);
-		} else {
-			for (let i = 0; i < count; i++) {
-				const skeletonBookItem = createElement('li', 'book-item loading');
-				skeletonBookItem.innerHTML = bookItemTemplate();
-
-				this.bookList.append(skeletonBookItem);
+		//Close modal
+		this.mainContent.addEventListener('click', (e) => {
+			if (e.target.className.includes('cancel-btn')) {
+				const modal = getElement('.modal');
+				modal.remove();
 			}
-		}
+		});
 	};
 
 	displayBooks = (books) => {
@@ -70,4 +53,28 @@ export default class BookView {
 			});
 		}
 	};
+
+	bindDeleteBook(handler) {
+		this.mainContent.addEventListener('click', (e) => {
+			let targetElement = e.target;
+			if (targetElement.className.includes('delete-icon')) {
+				targetElement = e.target.parentElement;
+			}
+			if (targetElement.className.includes('btn-delete')) {
+				const bookId = targetElement.parentElement.parentElement.parentElement.getAttribute('data-book-id');
+				const confirmModal = createElement('div', 'modal show');
+				const confirmModalContent = createElement('div', 'modal-content container');
+				confirmModalContent.innerHTML = confirmDialogTemplate();
+				confirmModal.appendChild(confirmModalContent);
+				this.mainContent.append(confirmModal);
+
+				const confirmDeleteBtn = getElement('.confirm-btn');
+
+				confirmDeleteBtn.addEventListener('click', (e) => {
+					handler(bookId);
+					confirmModal.remove();
+				});
+			}
+		});
+	}
 }
