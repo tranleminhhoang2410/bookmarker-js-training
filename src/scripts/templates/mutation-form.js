@@ -23,7 +23,11 @@ export const mutationFormTemplate = () => {
 			        <img src=${uploadIcon} alt="upload" />
 			        <span class="btn-upload-text text-sub-heading text-white">Upload</span>
 		        </button>
-		        <input type="file" class="input-box" name="book-image" placeholder="Book name" />
+		        <input accept="image/*" type="file" class="input-box" name="book-image" placeholder="Book name" />
+						<div class="book-preview">
+							<span class="book-name-preview"></span>
+							<img class="book-img-preview" src="" alt="" />
+						</div>
 	        </div>
 	        <div class="input-group book-description">
 		        <label for="book-description" class="input-label text-sub-heading">Description</label>

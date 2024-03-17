@@ -60,6 +60,7 @@
 	right: 0;
 	opacity: 0;
 	cursor: pointer;
+	z-index: 1;
 }
 
 .book-description .input-box {
@@ -79,6 +80,21 @@
 	min-width: 100px;
 	border-radius: var(--rectangle-item-border-radius);
 }
+
+.book-preview {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+/* .book-img-preview {
+	width: 96px;
+	height: 116px;
+} */
 
 @media (min-width: 576px) {
 	.mutation-form {

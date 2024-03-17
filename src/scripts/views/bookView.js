@@ -14,6 +14,7 @@ export default class BookView {
 		this.bookListWrapper = getElement('.book-list-wrapper');
 		this.bookList = getElement('.book-list');
 		this.createBtn = getElement('.btn-create');
+		this.inputFile = getElement('.input-box[type=file]');
 
 		this._initEventListener();
 	}
@@ -29,9 +30,22 @@ export default class BookView {
 			this.mainContent.appendChild(createModal);
 		});
 
+		//Preview book image
+		this.mainContent.addEventListener('change', (e) => {
+			if (e.target.type === 'file') {
+				const bookImgPreview = getElement('.book-img-preview');
+				const bookNamePreview = getElement('.book-name-preview');
+				const uploadBtn = getElement('.btn-upload');
+				bookNamePreview.innerHTML = `Selected: ${e.target.files[0].name}`;
+				bookImgPreview.src = URL.createObjectURL(e.target.files[0]);
+				bookImgPreview.style = 'width: 96px; height: 116px';
+				uploadBtn.style = 'opacity: 0';
+			}
+		});
+
 		//Close modal
 		this.mainContent.addEventListener('click', (e) => {
-			if (e.target.className.includes('cancel-btn')) {
+			if (e.target.className.includes('btn-cancel')) {
 				const modal = getElement('.modal');
 				modal.remove();
 			}
