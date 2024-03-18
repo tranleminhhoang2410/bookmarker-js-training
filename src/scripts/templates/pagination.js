@@ -1,20 +1,24 @@
-export const pagination = (currentPage, totalItems, itemPerPage) => {
-	const getPaginationNumbers = () => {
-		let paginationItem = '';
-		const totalPages = Math.ceil(totalItems / itemPerPage);
-		for (let i = 1; i <= totalPages; i++) {
-			paginationItem += `<li class='pagination-item'>
-        <button class="btn btn-square text-description ${
-					currentPage === i ? 'pagination-button current' : 'pagination-button'
-				}">${i}</button>
-      </li>`;
-		}
-		return paginationItem;
-	};
+import { createElement } from '../utils/ui-control';
 
-	return `
-			<ul class="pagination-list">
-        ${getPaginationNumbers()}
-			</ul>
-  `;
+const createPaginationItem = (pageNumber, onPageChange, currentPage) => {
+	const paginationItem = createElement('li', 'pagination-item');
+	const button = createElement('button', 'btn btn-square pagination-button');
+	button.textContent = pageNumber;
+	button.dataset.page = pageNumber;
+	if (pageNumber === currentPage) {
+		button.classList.add('current');
+	}
+	button.addEventListener('click', () => onPageChange(pageNumber));
+	paginationItem.appendChild(button);
+	return paginationItem;
+};
+export const pagination = (totalItems, itemsPerPage, onPageChange, currentPage) => {
+	const totalPages = Math.ceil(totalItems / itemsPerPage);
+	const paginationList = createElement('ul', 'pagination-list');
+
+	for (let i = 1; i <= totalPages; i++) {
+		paginationList.appendChild(createPaginationItem(i, onPageChange, currentPage));
+	}
+
+	return paginationList;
 };

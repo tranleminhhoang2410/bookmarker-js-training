@@ -52,24 +52,48 @@ export default class BookView {
 		});
 	};
 
-	displayBooks = (books) => {
+	displayBooks = (booksFetched, booksShowing, currentPage) => {
 		while (this.bookList.firstChild) {
 			this.bookList.removeChild(this.bookList.firstChild);
 		}
-		if (books.length === 0) {
+		if (booksShowing.length === 0) {
 			const bookListEmpty = createElement('div', 'book-list-empty');
 			bookListEmpty.innerHTML = listEmpty();
 			this.bookListWrapper.appendChild(bookListEmpty);
 			this.bookListWrapper.removeChild(this.bookList);
 		} else {
-			books.forEach((book) => {
+			booksShowing.forEach((book) => {
 				const bookItem = createElement('li', 'book-item');
 				bookItem.innerHTML = bookItemTemplate(book);
 				bookItem.setAttribute('data-book-id', book.id);
 				this.bookList.appendChild(bookItem);
 			});
+			// Display Pagination
+			const paginationContainer = createElement('div', 'pagination');
+			paginationContainer.appendChild(
+				pagination(
+					booksFetched.length,
+					6,
+					() => {
+						this.bookListWrapper.removeChild(paginationContainer);
+					},
+					currentPage
+				)
+			);
+			this.bookListWrapper.appendChild(paginationContainer);
 		}
 	};
+
+	bindPageChange(handler) {
+		this.mainContent.addEventListener('click', (event) => {
+			if (event.target.classList.contains('pagination-button')) {
+				const pageNumber = parseInt(event.target.dataset.page, 10);
+				if (pageNumber) {
+					handler(pageNumber);
+				}
+			}
+		});
+	}
 
 	bindDeleteBook(handler) {
 		this.mainContent.addEventListener('click', (e) => {
