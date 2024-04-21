@@ -1,8 +1,8 @@
-import { bookItemTemplate } from '../templates/book-item';
+import bookItemTemplate from '../templates/book-item';
 import { createElement, getElement } from '../utils/ui-control';
 import { pagination } from '../templates/pagination';
 import { listEmpty } from '../templates/list-empty';
-import { mutationFormTemplate } from '../templates/mutation-form';
+import  mutationFormTemplate  from '../templates/mutation-form';
 import { confirmDialogTemplate } from '../templates/confirm-dialog';
 import { showToast } from '../utils/toast-control';
 import { toastMessageTemplate } from '../templates/toast-message';
@@ -51,6 +51,14 @@ export default class BookView {
 			}
 		});
 	};
+
+	displaySkeletonBooks = (count) => {
+    for (let i = 0; i < count; i++) {
+      const skeletonBookItem = createElement('li', 'book-item loading');
+      skeletonBookItem.innerHTML = bookItemTemplate({});
+      this.bookList.appendChild(skeletonBookItem);
+    }
+  };
 
 	displayBooks = (booksFetched, booksShowing, currentPage) => {
 		while (this.bookList.firstChild) {

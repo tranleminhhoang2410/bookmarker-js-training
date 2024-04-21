@@ -1,29 +1,32 @@
 :root {
-	/* Color */
-	--primary-color: #fabb18;
-	--secondary-color: #000;
-	--white-color: #fff;
-	--danger-color: #fa4848;
-	--cancel-color: #ccc;
-	--success-color: rgb(106, 200, 60, 0.54);
-	--fail-color: rgb(200, 60, 60, 0.54);
-	--blur-text-color: #d5d5d5;
-	--input-background-color: #f4f4f4;
-	--modal-background-color: rgba(101, 101, 101, 0.57);
-	--primary-loading-color: #d9d9d9;
-	--secondary-loading-color: #f4f4f4;
+  /* Color */
+  --primary-color: #fabb18;
+  --secondary-color: #000;
+  --light-color: #fff;
+  --light-blur-color: #f4f4f4;
+  --blur-text-color: #d5d5d5;
+  --placeholder-text-color: #b5b5b5;
+  --primary-loading-color: #d9d9d9;
+  --danger-color: #fa4848;
+  --cancel-color: #ccc;
+  --modal-background-color: #65656591;
+  --success-color: #6ac83c8a;
+  --fail-color: #c83c3c8a;
 
-	/* Font size */
-	--fs-sm: 16px;
-	--fs-md: 20px;
-	--fs-2md: 32px;
-	--fs-lg: 36px;
+  /* Font family */
+  --font-bold: Lato-Bold, sans-serif;
+  --font-regular: Lato-Regular, sans-serif;
 
-	/* Border radius */
-	--image-frame-border-radius: 8px;
-	--square-button-border-radius: 10px;
-	--modal-border-radius: 15px;
-	--toast-border-radius: 15px;
-	--rectangle-item-border-radius: 20px;
-	--card-item-border-radius: 30px;
+  /* Font size */
+  --sm-fs: 16px;
+  --md-fs: 20px;
+  --lg-fs: 32px;
+  --xl-fs: 36px;
+
+  /* Border radius */
+  --xxs-border-radius: 8px;
+  --xs-border-radius: 10px;
+  --sm-border-radius: 15px;
+  --md-border-radius: 20px;
+  --lg-border-radius: 30px;
 }

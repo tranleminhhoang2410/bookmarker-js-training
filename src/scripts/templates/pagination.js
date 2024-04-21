@@ -2,11 +2,12 @@ import { createElement } from '../utils/ui-control';
 
 const createPaginationItem = (pageNumber, onPageChange, currentPage) => {
 	const paginationItem = createElement('li', 'pagination-item');
-	const button = createElement('button', 'btn btn-square pagination-button');
+	const button = createElement('button', 'btn btn-primary btn-square pagination-button');
 	button.textContent = pageNumber;
 	button.dataset.page = pageNumber;
 	if (pageNumber === currentPage) {
-		button.classList.add('current');
+		button.classList.add('btn-secondary', 'text-light', 'current');
+		button.classList.remove('btn-primary');
 	}
 	button.addEventListener('click', () => onPageChange(pageNumber));
 	paginationItem.appendChild(button);

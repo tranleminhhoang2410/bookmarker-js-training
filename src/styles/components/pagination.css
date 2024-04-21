@@ -1,19 +1,21 @@
 .pagination {
-	margin-top: 32px;
-}
-.pagination-list {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 16px;
+  margin-top: 32px;
 }
 
-.pagination-button {
-	background-color: var(--primary-color);
-	border-radius: var(--square-button-border-radius);
-	font-family: Lato-Regular, sans-serif;
+.pagination-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
-.pagination-button.current {
-	background-color: var(--secondary-color);
-	color: var(--white-color);
+
+.btn-pagination {
+  border-radius: var(--xs-border-radius);
+  background-color: var(--primary-color);
+  text-align: center;
+}
+
+.btn-pagination.current {
+  background-color: var(--secondary-color);
+  color: var(--light-color);
 }

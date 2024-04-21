@@ -19,3 +19,7 @@
 /* Sections */
 @import url('../../../styles/pages/home/sections/book-action.css');
 @import url('../../../styles/pages/home/sections/book-list.css');
+
+.content {
+  padding: 32px 0;
+}

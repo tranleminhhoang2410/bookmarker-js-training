@@ -1,38 +1,40 @@
-export default class BookController {
-	constructor(bookModel, bookView) {
+export default class HomeController {
+	constructor(bookModel, homeView) {
 		this.bookModel = bookModel;
-		this.bookView = bookView;
+    this.homeView = homeView;
+
 		this.currentPage = 1;
 		this.itemsPerPage = 6;
 		this.books = [];
 	}
 
 	async init() {
-		await this.onBookListChanged();
-		this.bookView.bindPageChange(this.handlePageChange);
-		this.bookView.bindDeleteBook(this.handleDeleteBook);
+		await this.displayBookList();
+		this.homeView.bindPageChange(this.handlePageChange);
+		this.homeView.bindDeleteBook(this.handleDeleteBook);
 	}
 
-	onBookListChanged = async () => {
+	displayBookList = async () => {
+		this.homeView.displaySkeletonBooks(6);
 		const response = await this.bookModel.getBooks();
 		this.books = response;
-		this._updateBooksView();
+		this.updateBookList();
 	};
 
-	_updateBooksView = () => {
+	updateBookList = () => {
 		const startIndex = (this.currentPage - 1) * this.itemsPerPage;
 		const endIndex = startIndex + this.itemsPerPage;
 		const booksToShow = this.books.slice(startIndex, endIndex);
-		this.bookView.displayBooks(this.books, booksToShow, this.currentPage);
+		this.homeView.displayBooks(this.books, booksToShow, this.currentPage);
 	};
 
 	handlePageChange = (pageNumber) => {
 		this.currentPage = pageNumber;
-		this._updateBooksView();
+		this.updateBookList();
 	};
 
 	handleDeleteBook = async (bookId) => {
 		await this.bookModel.deleteBook(bookId);
-		await this.onBookListChanged();
+		await this.displayBookList();
 	};
 }

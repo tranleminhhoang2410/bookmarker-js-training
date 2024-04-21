@@ -1,42 +1,38 @@
 .text-heading {
-	color: #000;
-	font-family: Lato-Bold, sans-serif;
-	font-size: var(--fs-md);
-}
-.text-sub-heading {
-	color: #000;
-	font-family: Lato-Bold, sans-serif;
-	font-size: var(--fs-sm);
-}
-.text-description {
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	line-clamp: 2;
-	color: #000;
-	-webkit-box-orient: vertical;
-	font-family: Lato-Regular, sans-serif;
-	font-size: var(--fs-sm);
-	overflow: hidden;
-}
-.text-white {
-	color: var(--white-color);
-}
-.text-truncate {
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-}
-.text-truncate.sm {
-	-webkit-line-clamp: 1;
-	line-clamp: 1;
-}
-.text-truncate.md {
-	-webkit-line-clamp: 2;
-	line-clamp: 2;
+  font-family: var(--font-bold);
+  font-size: var(--md-fs);
 }
 
-@media (min-width: 768px) {
-	.text-description {
-		font-size: var(--fs-md);
-	}
+.text-sub-heading {
+  font-family: var(--font-bold);
+  font-size: var(--sm-fs);
+}
+
+.text-description {
+  font-family: var(--font-regular);
+  font-size: var(--sm-fs);
+}
+
+.text-dark {
+  color: var(--secondary-color);
+}
+
+.text-light {
+  color: var(--light-color);
+}
+
+.text-truncate {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.text-heading.text-truncate {
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+
+.text-description.text-truncate {
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }

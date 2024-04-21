@@ -1,6 +1,6 @@
-import BookModel from './models/bookModel';
-import BookView from './views/bookView';
-import BookController from './controllers/bookController';
+import BookModel from './models/book';
+import HomeView from './views/home';
+import HomeController from './controllers/home';
 
-const app = new BookController(new BookModel(), new BookView());
+const app = new HomeController(new BookModel(), new HomeView());
 app.init();
