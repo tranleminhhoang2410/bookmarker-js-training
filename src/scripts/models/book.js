@@ -1,4 +1,4 @@
-import { addBookService, getBooksService, deleteBookService, updateBookService } from '../services/bookServices';
+import { addBookService, getBooksService, deleteBookService, updateBookService, getBookByIdService } from '../services/bookServices';
 
 export default class BookModel {
 	async addBook(bookData) {
@@ -9,6 +9,12 @@ export default class BookModel {
 		const response = await getBooksService();
 		return response;
 	}
+
+	async getBookById(bookId) {
+    const response = await getBookByIdService(bookId);
+    return response;
+  }
+
 
 	async updateBook(bookId, bookData) {
 		await updateBookService(bookId, bookData);

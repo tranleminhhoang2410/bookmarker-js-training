@@ -12,6 +12,7 @@ export default class HomeController {
 		await this.displayBookList();
 		this.homeView.bindPageChange(this.handlePageChange);
 		this.homeView.bindDeleteBook(this.handleDeleteBook);
+		this.homeView.bindInputChange(this.handleSearchBook)
 	}
 
 	displayBookList = async () => {
@@ -37,4 +38,13 @@ export default class HomeController {
 		await this.bookModel.deleteBook(bookId);
 		await this.displayBookList();
 	};
+
+	handleSearchBook = (keyword) => {
+		const searchTerm = keyword.trim().toLowerCase();
+    const filteredBooks = this.books.filter(book => {
+        return book.name.toLowerCase().includes(searchTerm);
+    });
+    // Hiển thị danh sách sách đã lọc
+    this.homeView.displayBooks(this.books, filteredBooks, this.currentPage);
+	}
 }

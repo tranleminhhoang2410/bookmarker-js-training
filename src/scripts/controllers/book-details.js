@@ -1,6 +1,6 @@
 export default class BookDetailsController {
-	constructor(bookDetailsModel, bookDetailsView) {
-		this.bookDetailsModel = bookDetailsModel;
+	constructor(bookModel, bookDetailsView) {
+		this.bookModel = bookModel;
 		this.bookDetailsView = bookDetailsView;
 	}
 
@@ -12,7 +12,7 @@ export default class BookDetailsController {
 	displayBookDetails = async () => {
 		const bookId = window.location.search.slice(4);
 		try {
-			const response = await this.bookDetailsModel.getBookById(bookId);
+			const response = await this.bookModel.getBookById(bookId);
 			this.bookDetailsView.bindGetBookDetails(response);
 		} catch (error) {
 			this.bookDetailsView.bindServerError();

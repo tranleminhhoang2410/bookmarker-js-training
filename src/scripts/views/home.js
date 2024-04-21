@@ -7,15 +7,16 @@ import { confirmDialogTemplate } from '../templates/confirm-dialog';
 import { showToast } from '../utils/toast-control';
 import { toastMessageTemplate } from '../templates/toast-message';
 import { TOAST } from '../constants/toast';
+import { debounce } from './../utils/debounce';
 
-export default class BookView {
+export default class HomeView {
 	constructor() {
 		this.mainContent = getElement('.content');
 		this.bookListWrapper = getElement('.book-list-wrapper');
 		this.bookList = getElement('.book-list');
 		this.createBtn = getElement('.btn-create');
 		this.inputFile = getElement('.input-box[type=file]');
-
+		this.searchBox = getElement('.search-box');
 		this._initEventListener();
 	}
 
@@ -101,6 +102,12 @@ export default class BookView {
 				}
 			}
 		});
+	}
+
+	bindInputChange(handler) {
+		this.searchBox.addEventListener('input', (event) => {
+			debounce(handler(event.target.value), 3000);
+		})
 	}
 
 	bindDeleteBook(handler) {
