@@ -1,8 +1,9 @@
-export const toastMessageTemplate = (message, description) => {
-	return `
-    <div class="toast-container">
-			<h2 class="toast-message">${message}</h2>
-			<p class="toast-description">${description}</p>
-		</div>
-  `;
-};
+export const toastMessageTemplate = (message, description) => `
+  <div class="toast-container success">
+    <h2 class="text-heading toast-message">${message}</h2>
+    <p class="text-description toast-description">${description}</p>
+    <button class="btn btn-close">
+      <img width="16px" height="16px" src="../assets/images/svg/close.svg" alt="close">
+    </button>
+  </div>
+`;
