@@ -1,31 +1,27 @@
-.toast {
+.toast-container {
 	padding: 20px;
 	position: fixed;
 	max-width: 288px;
 	right: 16px;
 	bottom: 32px;
 	border-radius: 20px;
-}
-
-.toast-container {
 	display: flex;
 	flex-direction: column;
+	gap: 16px;
 }
 
-.toast-message {
-	font-size: 22px;
+.toast-container.success {
+	background-color: var(--success-color);
 }
 
-.toast-description {
-	font-size: 20px;
-}
-
-.toast.success {
-	background-color: #6ac83c;
+.btn-close {
+	position: absolute;
+	top: 24px;
+	right: 20px;
 }
 
 @media (min-width: 576px) {
-	.toast {
+	.toast-container {
 		max-width: 512px;
 	}
 }

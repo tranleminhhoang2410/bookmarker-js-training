@@ -1,24 +1,22 @@
 .confirm-dialog {
 	padding: 32px;
-	background-color: #fff;
+	background-color: var(--light-color);
 	border-radius: 20px;
 }
 
-.confirm-dialog-heading,
-.confirm-dialog-description {
+.confirm-dialog .confirm-dialog-heading,
+.confirm-dialog .confirm-dialog-description,
+.confirm-dialog .confirm-dialog-btn {
 	text-align: center;
 }
 
-.confirm-dialog-heading {
-	font-size: var(--fs-md);
+.confirm-dialog .confirm-dialog-description {
+	font-size: var(--sm-fs);
+	color: var(--light-blur-text-color);
+	margin-top: 16px;
 }
 
-.confirm-dialog-description {
-	font-size: var(--fs-sm);
-	margin-top: 8px;
-}
-
-.confirm-dialog-action {
+.confirm-dialog .confirm-dialog-action {
 	margin-top: 32px;
 	display: flex;
 	align-items: center;
@@ -26,30 +24,19 @@
 	gap: 16px;
 }
 
-.confirm-dialog-btn {
-	padding: 12px;
-	border-radius: 10px;
-	width: 100px;
-}
-
-.confirm-dialog-btn.cancel-btn {
-	background-color: #ccc;
-}
-
-.confirm-dialog-btn.confirm-btn {
-	background-color: var(--secondary-color);
+.confirm-dialog .btn-action {
+	padding: 8px 12px;
+	min-width: 120px;
+	border-radius: var(--md-border-radius);
+	text-align: center;
 }
 
 @media (min-width: 768px) {
-	.confirm-dialog-heading {
-		font-size: var(--fs-lg);
+	.confirm-dialog .confirm-dialog-heading {
+		font-size: var(--lg-fs);
 	}
 
-	.confirm-dialog-description {
-		font-size: var(--fs-md);
-	}
-
-	.confirm-dialog-btn {
-		width: 160px;
+	.confirm-dialog .confirm-dialog-description {
+		font-size: var(--md-fs);
 	}
 }

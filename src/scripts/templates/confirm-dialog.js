@@ -3,7 +3,7 @@ import { CONFIRM_DIALOG } from '../constants/confirm-dialog';
 export const confirmDialogTemplate = (
 	message = CONFIRM_DIALOG.DELETE_BOOK,
 	description = CONFIRM_DIALOG.DESCRIPTION,
-	options
+	options = {}
 ) => {
 	const {
 		positiveButtonId = CONFIRM_DIALOG.POSITIVE_BUTTON_ID,
@@ -17,8 +17,8 @@ export const confirmDialogTemplate = (
       <h2 class="text-heading confirm-dialog-heading">${message}</h2>
       <p class="text-description confirm-dialog-description">${description}</p>
       <div class="confirm-dialog-action">
-        <button id=${negativeButtonId} class="text-sub-heading text-light btn btn-action btn-cancel">${negativeText}</button>
-        <button id=${positiveButtonId} class="text-sub-heading text-light btn btn-secondary btn-action btn-confirm">${positiveText}</button>
+        <button id=${negativeButtonId} class="text-sub-heading text-light btn btn-rectangle btn-action btn-cancel">${negativeText}</button>
+        <button id=${positiveButtonId} class="text-sub-heading text-light btn btn-rectangle btn-secondary btn-action btn-confirm">${positiveText}</button>
       </div>
     </div>
   `;

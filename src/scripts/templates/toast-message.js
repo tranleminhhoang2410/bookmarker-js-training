@@ -3,7 +3,7 @@ export const toastMessageTemplate = (message, description) => `
     <h2 class="text-heading toast-message">${message}</h2>
     <p class="text-description toast-description">${description}</p>
     <button class="btn btn-close">
-      <img width="16px" height="16px" src="../assets/images/svg/close.svg" alt="close">
+      <img width="16px" height="16px" src=${closeIcon} alt="close">
     </button>
   </div>
 `;

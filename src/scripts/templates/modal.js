@@ -1,7 +1,5 @@
-export const modalTemplate = (content) => `
-  <div class="modal">
-    <div class="modal-content">
+export const modalContentTemplate = (content) => `
+    <div class="modal-content container">
       ${content}
     </div>
-  </div>
 `;
