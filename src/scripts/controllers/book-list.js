@@ -1,5 +1,5 @@
-import { PAGINATION } from '../constants/pagination';
-import { SORT_STATUS } from '../constants/sort-status';
+import { PAGINATION, SORT } from '../constants';
+import { sortArray } from '../utils';
 
 export default class BookListController {
   constructor(bookModel, bookView) {
@@ -15,7 +15,7 @@ export default class BookListController {
     await this.displayBookList();
     this.bookView.bindPageChange(this.handlePageChange);
     this.bookView.bindInputChange(this.handleSearchBook);
-    this.bookView.bindSortBook(this.handleSortBook);
+    this.bookView.bindSortBook(this.handleSortBookByName);
     this.bookView.bindDeleteBook(this.handleDeleteBook);
   }
 
@@ -49,14 +49,18 @@ export default class BookListController {
     this.updateBookList(filteredBooks);
   };
 
-  handleSortBook = (sortStatus) => {
+  handleSortBookByName = (sortStatus) => {
     switch (sortStatus) {
-      case SORT_STATUS.ASCENDING:
-        this.renderBooks.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+      case SORT.STATUS.ASCENDING: {
+        const ascSortedBooks = sortArray(this.renderBooks, SORT.KEY.NAME, SORT.STATUS.ASCENDING)
+        this.renderBooks = [...ascSortedBooks]
         break;
-      case SORT_STATUS.DESCENDING:
-        this.renderBooks.sort((a, b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));
+      }
+      case SORT.STATUS.DESCENDING: {
+        const descSortedBooks = sortArray(this.renderBooks, SORT.KEY.NAME, SORT.STATUS.DESCENDING)
+        this.renderBooks = [...descSortedBooks]
         break;
+      }
       default:
         this.renderBooks = [...this.originalBooks];
     }

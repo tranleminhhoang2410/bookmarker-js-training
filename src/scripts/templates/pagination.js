@@ -1,4 +1,4 @@
-import { createElement } from '../utils/ui-control';
+import { createElement } from '../utils';
 
 const createPaginationItem = (pageNumber, onPageChange, currentPage) => {
   const paginationItem = createElement('li', 'pagination-item');

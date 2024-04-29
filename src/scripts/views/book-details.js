@@ -1,7 +1,7 @@
 import { bookDetailsTemplate } from '../templates/book-details';
 import { serverErrorTemplate } from '../templates/server-error';
 
-import { createElement, getElement } from '../utils/ui-control';
+import { createElement, getElement } from '../utils';
 
 export default class BookDetailsView {
   constructor() {

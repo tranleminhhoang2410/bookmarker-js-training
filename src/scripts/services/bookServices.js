@@ -1,5 +1,5 @@
-import { API_PATH } from '../constants/api-path';
-import { request } from '../utils/request';
+import { API_PATH } from '../constants';
+import { request } from '../utils';
 
 const bookApiPath = API_PATH.BOOKS;
 

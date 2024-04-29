@@ -2,7 +2,7 @@ import backIcon from '../../assets/images/svg/left-forward.svg';
 import deleteIcon from '../../assets/images/svg/trash.svg';
 import editIcon from '../../assets/images/svg/edit.svg';
 
-import { timeFormat } from '../utils/time-control';
+import { timeFormat } from '../utils';
 
 export const bookDetailsTemplate = (book) => {
   const { name, description, authors, imageUrl, createdAt, updatedAt } = book;

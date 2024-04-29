@@ -3,14 +3,14 @@ import { PAGINATION } from '../constants/pagination';
 import { SEARCH } from '../constants/search';
 
 // Utils
-import { createElement, getElement, getElements } from '../utils/ui-control';
-import { debounce } from '../utils/debounce';
+import { createElement, getElement, getElements, debounce } from '../utils';
 
 // Templates
 import bookItemTemplate from '../templates/book-item';
 import {listEmptyTemplate} from '../templates/list-empty';
 import { paginationTemplate } from '../templates/pagination';
-import { SORT_STATUS } from '../constants/sort-status';
+
+import { SORT } from '../constants';
 
 export default class BookView {
   constructor() {
@@ -19,7 +19,7 @@ export default class BookView {
     this.bookList = getElement('.book-list');
     this.searchBox = getElement('#search-box');
     this.sortBtns = getElements('.btn-sort');
-    this.sortStatus = SORT_STATUS.DEFAULT;
+    this.sortStatus = '';
   }
 
   toggleSortStatus(target) {
@@ -27,12 +27,12 @@ export default class BookView {
     const isDescending = target.classList.contains('desc');
     const oppositeClass = isAscending ? 'desc' : 'asc';
 
-    let newStatus = SORT_STATUS.DEFAULT;
+    let newStatus = '';
 
     if (isAscending) {
-      newStatus = SORT_STATUS.ASCENDING;
+      newStatus = SORT.STATUS.ASCENDING;
     } else if (isDescending) {
-      newStatus = SORT_STATUS.DESCENDING;
+      newStatus = SORT.STATUS.DESCENDING;
     }
 
     // Remove 'active' class from the opposite sort button if it exists

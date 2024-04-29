@@ -1,4 +1,4 @@
 export const SEARCH = {
-  DELAY_TIME: 500,
+  DELAY_TIME: 500
 };
 
