@@ -9,9 +9,11 @@ export default class BookListController {
 		this.renderBooks = [];
 		this.currentPage = 1;
 		this.itemsPerPage = PAGINATION.ITEMS_PER_PAGE;
+		this.imageUrl = '';
 	}
 
 	async init() {
+		this.bookView.bindGetImageUrl(this.handleGetImageUrl);
 		this.bookView.bindAddBook(this.handleAddBook);
 		await this.displayBookList();
 		this.bookView.bindPageChange(this.handlePageChange);
@@ -19,6 +21,12 @@ export default class BookListController {
 		this.bookView.bindSortBook(this.handleSortBookByName);
 		this.bookView.bindDeleteBook(this.handleDeleteBook);
 	}
+
+	handleGetImageUrl = async (fileUpload) => {
+		const response = await this.bookModel.getImageUrl(fileUpload);
+		this.imageUrl = await response;
+		console.log(this.imageUrl);
+	};
 
 	handleAddBook = async (data) => {
 		console.log(data);

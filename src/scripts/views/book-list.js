@@ -15,7 +15,6 @@ import { confirmDialogTemplate } from './../templates/confirm-dialog';
 import { modalContentTemplate } from '../templates/modal';
 import { toastMessageTemplate } from '../templates/toast-message';
 import { bookFormTemplate } from '../templates/book-form';
-import { getImageUrlServices } from '../services/bookServices';
 
 export default class BookView {
 	constructor() {
@@ -27,6 +26,26 @@ export default class BookView {
 		this.createBtn = getElement('#btn-create');
 		this.sortStatus = '';
 	}
+
+	bindGetImageUrl = (handler) => {
+		this.mainContent.addEventListener('change', (e) => {
+			if (e.target.type === 'file') {
+				const bookImgPreview = getElement('.book-img-preview');
+				const bookNamePreview = getElement('.book-name-preview');
+				const uploadBtn = getElement('.btn-upload');
+				const file = e.target.files[0];
+
+				bookNamePreview.innerHTML = `Selected: ${e.target.files[0].name}`;
+				bookImgPreview.src = URL.createObjectURL(e.target.files[0]);
+				bookImgPreview.style = 'width: 96px; height: 116px';
+				uploadBtn.style = 'opacity: 0';
+
+				const formData = new FormData();
+				formData.append('image', file);
+				handler(formData);
+			}
+		});
+	};
 
 	bindAddBook = (handler) => {
 		let data = {
@@ -49,30 +68,6 @@ export default class BookView {
 			// Handling the 'Cancel' button click
 			negativeButton.addEventListener('click', () => {
 				this.mainContent.removeChild(bookFormModal); // Remove the modal from the DOM
-			});
-
-			//Preview book image
-			const fileUpload = getElement('#file-upload');
-			fileUpload.addEventListener('change', async (e) => {
-				const bookImgPreview = getElement('.book-img-preview');
-				const bookNamePreview = getElement('.book-name-preview');
-				const uploadBtn = getElement('.btn-upload');
-				const file = e.target.files[0];
-				console.log(file);
-
-				bookNamePreview.innerHTML = `Selected: ${e.target.files[0].name}`;
-				bookImgPreview.src = URL.createObjectURL(e.target.files[0]);
-				bookImgPreview.style = 'width: 96px; height: 116px';
-				uploadBtn.style = 'opacity: 0';
-
-				const formData = new FormData();
-				formData.append('image', file);
-				try {
-					const imageUrl = await getImageUrlServices(formData);
-					data.imageUrl = imageUrl;
-				} catch (error) {
-					console.error('Error uploading image:', error);
-				}
 			});
 
 			// Handling the 'Save' button click

@@ -1,26 +1,37 @@
-import { addBookService, getBooksService, deleteBookService, updateBookService, getBookByIdService } from '../services/bookServices';
+import {
+	addBookService,
+	getBooksService,
+	deleteBookService,
+	updateBookService,
+	getBookByIdService,
+	getImageUrlServices
+} from '../services/bookServices';
 
 export default class BookModel {
-	async addBook(bookData) {
+	addBook = async (bookData) => {
 		await addBookService(bookData);
-	}
+	};
 
-	async getBooks() {
+	getBooks = async () => {
 		const response = await getBooksService();
 		return response;
-	}
+	};
 
-	async getBookById(bookId) {
-    const response = await getBookByIdService(bookId);
-    return response;
-  }
+	getBookById = async (bookId) => {
+		const response = await getBookByIdService(bookId);
+		return response;
+	};
 
-
-	async updateBook(bookId, bookData) {
+	updateBook = async (bookId, bookData) => {
 		await updateBookService(bookId, bookData);
-	}
+	};
 
-	async deleteBook(bookId) {
+	deleteBook = async (bookId) => {
 		await deleteBookService(bookId);
-	}
+	};
+
+	getImageUrl = async (fileUpload) => {
+		const response = await getImageUrlServices(fileUpload);
+		return response;
+	};
 }
