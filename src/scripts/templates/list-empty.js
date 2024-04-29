@@ -1,6 +1,6 @@
-export const listEmpty = () => {
+export const listEmptyTemplate = () => {
 	return `
-    <h1>Oops! Nothing match with your keyword!</h1>
-    <h2>You can search with other keyword or add another new book.</h2>
+    <h1 class="text-heading list-empty-heading">Oops! Nothing match with your keyword!</h1>
+    <p class="text-description list-empty-description">You can search with other keyword or add another new book.</p>
   `;
 };

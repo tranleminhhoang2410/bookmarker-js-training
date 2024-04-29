@@ -19,6 +19,7 @@
 }
 
 .book-action .search-box {
+  width: 100%;
   background-color: var(--light-blur-color);
 }
 
@@ -48,6 +49,10 @@
   background-color: transparent;
   font-family: Lato-Bold, sans-serif;
   font-size: var(--fs-sm);
+}
+
+.book-action .btn-sort.active {
+  color: var(--primary-color);
 }
 
 .book-action .btn-create {

@@ -1,0 +1,15 @@
+.list-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.list-empty .list-empty-heading,
+.list-empty .list-empty-description {
+  text-align: center;
+}
+
+.list-empty .list-empty-description{
+  color: var(--light-blur-text-color);
+}

@@ -10,3 +10,9 @@ export const getElement = (selector) => {
 	const element = document.querySelector(selector);
 	return element;
 };
+
+// Retrieve more than one element from the DOM
+export const getElements = (selector) => {
+  const elements = document.querySelectorAll(selector);
+  return elements;
+};

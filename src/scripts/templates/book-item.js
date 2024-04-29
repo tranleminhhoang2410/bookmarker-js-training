@@ -1,5 +1,5 @@
 import viewDetailsIcon from '../../assets/images/svg/right-forward.svg';
-import editIcon from '../../assets/images/svg/edit.svg';
+import deleteIcon from '../../assets/images/svg/trash.svg';
 
 const bookItemTemplate = (book) => {
   const { id, name, description, imageUrl } = book;
@@ -15,7 +15,7 @@ const bookItemTemplate = (book) => {
           </a>
         </button>
         <button class="btn btn-square btn-danger btn-delete">
-          <img loading="lazy" src=${editIcon} alt="Delete" />
+          <img loading="lazy" src=${deleteIcon} alt="Delete" />
         </button>
       </div>
     </div>
