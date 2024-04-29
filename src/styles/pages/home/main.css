@@ -9,7 +9,7 @@
 @import url('../../../styles/components/pagination.css');
 @import url('../../../styles/components/modal.css');
 @import url('../../../styles/components/list-empty.css');
-@import url('../../../styles/components/mutation-form.css');
+@import url('../../../styles/components/book-form.css');
 @import url('../../../styles/components/confirm-dialog.css');
 @import url('../../../styles/components/toast.css');
 
@@ -22,5 +22,5 @@
 @import url('../../../styles/pages/home/sections/book-list.css');
 
 .content {
-  padding: 32px 0;
+	padding: 32px 0;
 }

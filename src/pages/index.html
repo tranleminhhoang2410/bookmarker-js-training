@@ -1,45 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Book Marker</title>
+		<title>Book Marker</title>
 
-    <link rel="stylesheet" href="../styles/pages/home/main.css" />
-    <link href="../assets/favicon/favicon.ico" rel="icon" type="image/x-icon" />
-  </head>
-  <body>
-    <header class="main-header section-layout">
-      <a href="/" class="main-header-link">
-        <img src="../assets/images/svg/book-marker-logo.svg" alt="Book Marker Logo" />
-      </a>
-      <h1 class="main-header-title">Hello! Welcome to the Book Marker</h1>
-    </header>
-    <main class="content">
-      <section class="book-management container">
-        <div class="book-action">
-          <div class="search">
-            <img class="search-icon" src="../assets/images/svg/search.svg" alt="Search" />
-            <input type="text" id="search-box" class="search-box" placeholder="Search something..." />
-          </div>
-          <div class="sort-and-create">
-            <div class="sort">
-              <button class="btn btn-sort asc">Ascending</button>
-              <button class="btn btn-sort desc">Descending</button>
-            </div>
-            <button class="btn btn-secondary btn-rectangle btn-create">
-              <img class="btn-create-icon" src="../assets/images/svg/plus.svg" alt="Create" />
-              <span class="text-light btn-create-text">Create</span>
-            </button>
-          </div>
-        </div>
-        <div class="book-list-wrapper">
-          <ul class="book-list">
-          </ul>
-        </div>
-      </section>
-    </main>
-    <script src="../scripts/index.js" type="module"></script>
-  </body>
+		<link rel="stylesheet" href="../styles/pages/home/main.css" />
+		<link href="../assets/favicon/favicon.ico" rel="icon" type="image/x-icon" />
+	</head>
+	<body>
+		<header class="main-header section-layout">
+			<a href="/" class="main-header-link">
+				<img src="../assets/images/svg/book-marker-logo.svg" alt="Book Marker Logo" />
+			</a>
+			<h1 class="main-header-title">Hello! Welcome to the Book Marker</h1>
+		</header>
+		<main class="content">
+			<section class="book-management container">
+				<div class="book-action">
+					<div class="search">
+						<img class="search-icon" src="../assets/images/svg/search.svg" alt="Search" />
+						<input type="text" id="search-box" class="search-box" placeholder="Search something..." />
+					</div>
+					<div class="sort-and-create">
+						<div class="sort">
+							<button class="btn btn-sort asc">Ascending</button>
+							<button class="btn btn-sort desc">Descending</button>
+						</div>
+						<button id="btn-create" class="btn btn-secondary btn-rectangle btn-create">
+							<img class="btn-create-icon" src="../assets/images/svg/plus.svg" alt="Create" />
+							<span class="text-light btn-create-text">Create</span>
+						</button>
+					</div>
+				</div>
+				<div class="book-list-wrapper">
+					<ul class="book-list"></ul>
+				</div>
+			</section>
+		</main>
+		<script src="../scripts/index.js" type="module"></script>
+	</body>
 </html>

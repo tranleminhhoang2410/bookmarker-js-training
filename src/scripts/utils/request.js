@@ -1,17 +1,21 @@
 import 'dotenv/config';
 
-export const request = async (path, method, data) => {
-	const url = `${process.env.BASE_API_URL}/${path}`;
+export const request = async (url, method, data, isJson = true) => {
+	const headers = {};
+	if (isJson) {
+		headers['Content-Type'] = 'application/json';
+		data = JSON.stringify(data);
+	}
+
 	const response = await fetch(url, {
 		method,
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(data)
+		headers,
+		body: data
 	});
+
 	if (response.ok) {
 		return response.json();
 	} else {
-		throw new Error('Error while sending request');
+		throw new Error('Error while sending request: ' + (await response.text()));
 	}
 };

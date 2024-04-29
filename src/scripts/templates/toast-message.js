@@ -1,4 +1,4 @@
-export const toastMessageTemplate = (message, description) => `
+export const toastMessageTemplate = (message = 'Your actions executed successfully!', description) => `
   <div class="toast-container success">
     <h2 class="text-heading toast-message">${message}</h2>
     <p class="text-description toast-description">${description}</p>

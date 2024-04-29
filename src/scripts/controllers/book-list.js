@@ -2,74 +2,79 @@ import { PAGINATION, SORT } from '../constants';
 import { sortArray } from '../utils';
 
 export default class BookListController {
-  constructor(bookModel, bookView) {
-    this.bookModel = bookModel;
-    this.bookView = bookView;
-    this.originalBooks = [];
-    this.renderBooks = [];
-    this.currentPage = 1;
-    this.itemsPerPage = PAGINATION.ITEMS_PER_PAGE;
-  }
+	constructor(bookModel, bookView) {
+		this.bookModel = bookModel;
+		this.bookView = bookView;
+		this.originalBooks = [];
+		this.renderBooks = [];
+		this.currentPage = 1;
+		this.itemsPerPage = PAGINATION.ITEMS_PER_PAGE;
+	}
 
-  async init() {
-    await this.displayBookList();
-    this.bookView.bindPageChange(this.handlePageChange);
-    this.bookView.bindInputChange(this.handleSearchBook);
-    this.bookView.bindSortBook(this.handleSortBookByName);
-    this.bookView.bindDeleteBook(this.handleDeleteBook);
-  }
+	async init() {
+		this.bookView.bindAddBook(this.handleAddBook);
+		await this.displayBookList();
+		this.bookView.bindPageChange(this.handlePageChange);
+		this.bookView.bindInputChange(this.handleSearchBook);
+		this.bookView.bindSortBook(this.handleSortBookByName);
+		this.bookView.bindDeleteBook(this.handleDeleteBook);
+	}
 
-  displayBookList = async () => {
-    this.bookView.displaySkeletonBooks(PAGINATION.ITEMS_PER_PAGE);
-    const response = await this.bookModel.getBooks();
-    this.renderBooks = response;
-    this.originalBooks = [...this.renderBooks];
-    this.updateBookList(this.renderBooks);
-  };
+	handleAddBook = async (data) => {
+		console.log(data);
+	};
 
-  updateBookList = (bookList) => {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    const booksToShow = bookList.slice(startIndex, endIndex);
-    this.bookView.displayBooks(bookList, booksToShow, this.currentPage);
-  };
+	displayBookList = async () => {
+		this.bookView.displaySkeletonBooks(PAGINATION.ITEMS_PER_PAGE);
+		const response = await this.bookModel.getBooks();
+		this.renderBooks = response;
+		this.originalBooks = [...this.renderBooks];
+		this.updateBookList(this.renderBooks);
+	};
 
-  handlePageChange = (pageNumber) => {
-    this.currentPage = pageNumber;
-    this.updateBookList(this.renderBooks);
-  };
+	updateBookList = (bookList) => {
+		const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+		const endIndex = startIndex + this.itemsPerPage;
+		const booksToShow = bookList.slice(startIndex, endIndex);
+		this.bookView.displayBooks(bookList, booksToShow, this.currentPage);
+	};
 
-  handleSearchBook = (keyword) => {
-    this.currentPage = 1;
-    const searchTerm = keyword.trim().toLowerCase();
+	handlePageChange = (pageNumber) => {
+		this.currentPage = pageNumber;
+		this.updateBookList(this.renderBooks);
+	};
 
-    // eslint-disable-next-line max-len
-    const filteredBooks = this.renderBooks.filter((book) => book.name.toLowerCase().includes(searchTerm));
+	handleSearchBook = (keyword) => {
+		this.currentPage = 1;
+		const searchTerm = keyword.trim().toLowerCase();
 
-    this.updateBookList(filteredBooks);
-  };
+		// eslint-disable-next-line max-len
+		const filteredBooks = this.renderBooks.filter((book) => book.name.toLowerCase().includes(searchTerm));
 
-  handleSortBookByName = (sortStatus) => {
-    switch (sortStatus) {
-      case SORT.STATUS.ASCENDING: {
-        const ascSortedBooks = sortArray(this.renderBooks, SORT.KEY.NAME, SORT.STATUS.ASCENDING)
-        this.renderBooks = [...ascSortedBooks]
-        break;
-      }
-      case SORT.STATUS.DESCENDING: {
-        const descSortedBooks = sortArray(this.renderBooks, SORT.KEY.NAME, SORT.STATUS.DESCENDING)
-        this.renderBooks = [...descSortedBooks]
-        break;
-      }
-      default:
-        this.renderBooks = [...this.originalBooks];
-    }
+		this.updateBookList(filteredBooks);
+	};
 
-    this.updateBookList(this.renderBooks);
-  };
+	handleSortBookByName = (sortStatus) => {
+		switch (sortStatus) {
+			case SORT.STATUS.ASCENDING: {
+				const ascSortedBooks = sortArray(this.renderBooks, SORT.KEY.NAME, SORT.STATUS.ASCENDING);
+				this.renderBooks = [...ascSortedBooks];
+				break;
+			}
+			case SORT.STATUS.DESCENDING: {
+				const descSortedBooks = sortArray(this.renderBooks, SORT.KEY.NAME, SORT.STATUS.DESCENDING);
+				this.renderBooks = [...descSortedBooks];
+				break;
+			}
+			default:
+				this.renderBooks = [...this.originalBooks];
+		}
 
-  handleDeleteBook = async (bookId) => {
-    await this.bookModel.deleteBook(bookId);
-    this.displayBookList();
-  };
+		this.updateBookList(this.renderBooks);
+	};
+
+	handleDeleteBook = async (bookId) => {
+		await this.bookModel.deleteBook(bookId);
+		this.displayBookList();
+	};
 }

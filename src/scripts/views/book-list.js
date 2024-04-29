@@ -10,10 +10,12 @@ import bookItemTemplate from '../templates/book-item';
 import { listEmptyTemplate } from '../templates/list-empty';
 import { paginationTemplate } from '../templates/pagination';
 
-import { CONFIRM_DIALOG, SORT } from '../constants';
+import { BOOK_FORM, CONFIRM_DIALOG, SORT } from '../constants';
 import { confirmDialogTemplate } from './../templates/confirm-dialog';
 import { modalContentTemplate } from '../templates/modal';
 import { toastMessageTemplate } from '../templates/toast-message';
+import { bookFormTemplate } from '../templates/book-form';
+import { getImageUrlServices } from '../services/bookServices';
 
 export default class BookView {
 	constructor() {
@@ -22,10 +24,66 @@ export default class BookView {
 		this.bookList = getElement('.book-list');
 		this.searchBox = getElement('#search-box');
 		this.sortBtns = getElements('.btn-sort');
+		this.createBtn = getElement('#btn-create');
 		this.sortStatus = '';
 	}
 
-	toggleSortStatus(target) {
+	bindAddBook = (handler) => {
+		let data = {
+			name: '',
+			description: '',
+			imageUrl: ''
+		};
+		this.createBtn.addEventListener('click', (e) => {
+			// Create and show the book form
+			const bookForm = bookFormTemplate();
+			const bookFormContent = modalContentTemplate(bookForm);
+			const bookFormModal = createElement('div', 'modal');
+			bookFormModal.innerHTML = bookFormContent;
+			this.mainContent.appendChild(bookFormModal);
+
+			// Get the positive and negative buttons from the modal
+			const positiveButton = getElement('#' + BOOK_FORM.POSITIVE_BUTTON_ID);
+			const negativeButton = getElement('#' + BOOK_FORM.NEGATIVE_BUTTON_ID);
+
+			// Handling the 'Cancel' button click
+			negativeButton.addEventListener('click', () => {
+				this.mainContent.removeChild(bookFormModal); // Remove the modal from the DOM
+			});
+
+			//Preview book image
+			const fileUpload = getElement('#file-upload');
+			fileUpload.addEventListener('change', async (e) => {
+				const bookImgPreview = getElement('.book-img-preview');
+				const bookNamePreview = getElement('.book-name-preview');
+				const uploadBtn = getElement('.btn-upload');
+				const file = e.target.files[0];
+				console.log(file);
+
+				bookNamePreview.innerHTML = `Selected: ${e.target.files[0].name}`;
+				bookImgPreview.src = URL.createObjectURL(e.target.files[0]);
+				bookImgPreview.style = 'width: 96px; height: 116px';
+				uploadBtn.style = 'opacity: 0';
+
+				const formData = new FormData();
+				formData.append('image', file);
+				try {
+					const imageUrl = await getImageUrlServices(formData);
+					data.imageUrl = imageUrl;
+				} catch (error) {
+					console.error('Error uploading image:', error);
+				}
+			});
+
+			// Handling the 'Save' button click
+			positiveButton.addEventListener('click', (e) => {
+				e.preventDefault();
+				handler(data);
+			});
+		});
+	};
+
+	toggleSortStatus = (target) => {
 		const isAscending = target.classList.contains('asc');
 		const isDescending = target.classList.contains('desc');
 		const oppositeClass = isAscending ? 'desc' : 'asc';
@@ -54,7 +112,7 @@ export default class BookView {
 			this.sortStatus = newStatus;
 			target.classList.add('active');
 		}
-	}
+	};
 
 	displaySkeletonBooks = (count) => {
 		for (let i = 0; i < count; i++) {
@@ -112,14 +170,14 @@ export default class BookView {
 		}
 	};
 
-	bindInputChange(handler) {
+	bindInputChange = (handler) => {
 		const debouncedHandler = debounce(handler, SEARCH.DELAY_TIME);
 		this.searchBox.addEventListener('input', (event) => {
 			debouncedHandler(event.target.value);
 		});
-	}
+	};
 
-	bindPageChange(handler) {
+	bindPageChange = (handler) => {
 		this.mainContent.addEventListener('click', (event) => {
 			if (event.target.classList.contains('btn-pagination')) {
 				const pageNumber = parseInt(event.target.dataset.page, 10);
@@ -128,18 +186,18 @@ export default class BookView {
 				}
 			}
 		});
-	}
+	};
 
-	bindSortBook(handler) {
+	bindSortBook = (handler) => {
 		this.sortBtns.forEach((btn) => {
 			btn.addEventListener('click', (event) => {
 				this.toggleSortStatus(event.target);
 				handler(this.sortStatus);
 			});
 		});
-	}
+	};
 
-	bindDeleteBook(handler) {
+	bindDeleteBook = (handler) => {
 		this.mainContent.addEventListener('click', (event) => {
 			const btnDelete = event.target.closest('.btn-delete');
 
@@ -181,5 +239,5 @@ export default class BookView {
 				});
 			}
 		});
-	}
+	};
 }
