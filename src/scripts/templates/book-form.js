@@ -35,6 +35,7 @@ export const bookFormTemplate = (options = {}) => {
             <span class="upload-text text-sub-heading text-light">Upload</span>
           </button>
           <input id="file-upload" accept="image/*" type="file" class="text-description input-box" name="book-image" placeholder="Book name"/>
+          <input type="hidden" id="book-image-url" name="book-image-url" value="">
           <div class="book-preview">
             <span class="text-description book-name-preview"></span>
             <img class="book-img-preview" src="" alt=""/>

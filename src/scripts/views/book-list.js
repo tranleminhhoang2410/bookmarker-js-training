@@ -42,17 +42,13 @@ export default class BookView {
 
 				const formData = new FormData();
 				formData.append('image', file);
+
 				handler(formData);
 			}
 		});
 	};
 
 	bindAddBook = (handler) => {
-		let data = {
-			name: '',
-			description: '',
-			imageUrl: ''
-		};
 		this.createBtn.addEventListener('click', (e) => {
 			// Create and show the book form
 			const bookForm = bookFormTemplate();
@@ -61,8 +57,9 @@ export default class BookView {
 			bookFormModal.innerHTML = bookFormContent;
 			this.mainContent.appendChild(bookFormModal);
 
-			// Get the positive and negative buttons from the modal
-			const positiveButton = getElement('#' + BOOK_FORM.POSITIVE_BUTTON_ID);
+			const form = getElement('#book-form');
+
+			// Get negative buttons from the modal
 			const negativeButton = getElement('#' + BOOK_FORM.NEGATIVE_BUTTON_ID);
 
 			// Handling the 'Cancel' button click
@@ -70,10 +67,39 @@ export default class BookView {
 				this.mainContent.removeChild(bookFormModal); // Remove the modal from the DOM
 			});
 
-			// Handling the 'Save' button click
-			positiveButton.addEventListener('click', (e) => {
+			// Handling the 'Save' button click within the form
+			form.addEventListener('submit', (e) => {
 				e.preventDefault();
+
+				// Use FormData to retrieve form data
+				const formData = new FormData(form);
+				const name = formData.get('book-name');
+				const author = formData.get('book-author');
+				const publishedDate = formData.get('book-published-date');
+				const description = formData.get('book-description');
+
+				const data = {
+					name,
+					author,
+					publishedDate,
+					description
+				};
+
 				handler(data);
+
+				// Remove the modal from the DOM
+				this.mainContent.removeChild(bookFormModal);
+
+				// Show the toast message
+				const toastMessage = toastMessageTemplate();
+				const toastContainer = createElement('div', 'toast-container');
+				toastContainer.innerHTML = toastMessage;
+				this.mainContent.appendChild(toastContainer);
+
+				// Automatically hide the toast message after a certain time
+				setTimeout(() => {
+					this.mainContent.removeChild(toastContainer);
+				}, 3000); // Hide after 3 seconds (adjust as needed)
 			});
 		});
 	};

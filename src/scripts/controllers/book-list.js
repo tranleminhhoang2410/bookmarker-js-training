@@ -10,6 +10,7 @@ export default class BookListController {
 		this.currentPage = 1;
 		this.itemsPerPage = PAGINATION.ITEMS_PER_PAGE;
 		this.imageUrl = '';
+		this.isImageLoading = false;
 	}
 
 	async init() {
@@ -25,11 +26,25 @@ export default class BookListController {
 	handleGetImageUrl = async (fileUpload) => {
 		const response = await this.bookModel.getImageUrl(fileUpload);
 		this.imageUrl = await response;
-		console.log(this.imageUrl);
+		this.isImageLoading = true;
 	};
 
 	handleAddBook = async (data) => {
-		console.log(data);
+		if (!this.isImageLoading) {
+			// Nếu isImageLoading không true, chờ cho đến khi nó trở thành true
+			await new Promise((resolve) => {
+				const interval = setInterval(() => {
+					if (this.isImageLoading) {
+						clearInterval(interval);
+						resolve();
+					}
+				}, 100); // Kiểm tra mỗi 100ms
+			});
+		}
+
+		const response = await this.bookModel.addBook({ ...data, imageUrl: this.imageUrl });
+		this.renderBooks.unshift(response);
+		this.updateBookList(this.renderBooks);
 	};
 
 	displayBookList = async () => {

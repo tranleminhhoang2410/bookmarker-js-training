@@ -9,7 +9,8 @@ import {
 
 export default class BookModel {
 	addBook = async (bookData) => {
-		await addBookService(bookData);
+		const response = await addBookService(bookData);
+		return response;
 	};
 
 	getBooks = async () => {

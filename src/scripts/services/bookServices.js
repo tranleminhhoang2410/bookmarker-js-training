@@ -23,7 +23,8 @@ export const getImageUrlServices = async (formData) => {
 };
 export const addBookService = async (bookData) => {
 	try {
-		await request(bookApiUrl, 'POST', bookData);
+		const response = await request(bookApiUrl, 'POST', bookData);
+		return response;
 	} catch (error) {
 		throw new Error(error);
 	}
