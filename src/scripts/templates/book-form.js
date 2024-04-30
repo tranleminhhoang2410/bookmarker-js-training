@@ -2,7 +2,9 @@ import { BOOK_FORM } from '../constants/book-form';
 
 import uploadIcon from '../../assets/images/svg/upload.svg';
 
-export const bookFormTemplate = (options = {}) => {
+export const bookFormTemplate = (book = {}, options = {}) => {
+	const { name, description, authors, imageUrl, publishedDate } = book;
+
 	const {
 		formId = BOOK_FORM.FORM_ID,
 		uploadButtonId = BOOK_FORM.UPLOAD_BUTTON_ID,
@@ -18,17 +20,23 @@ export const bookFormTemplate = (options = {}) => {
       <div class="form-content">
         <div class="input-group book-name">
           <label for="book-name" class="input-label text-sub-heading">Book name</label>
-          <input type="text" class="text-description input-box" name="book-name" placeholder="Book name"/>
+          <input type="text" class="text-description input-box" name="book-name" placeholder="Book name" value="${
+						name || ''
+					}"/>
           <p class="text-description text-error error-message"></p>
         </div>
         <div class="input-group book-author">
           <label for="book-author" class="input-label text-sub-heading">Author</label>
-          <input type="text" class="text-description input-box" name="book-author" placeholder="Author"/>
+          <input type="text" class="text-description input-box" name="book-author" placeholder="Author" value="${
+						authors || ''
+					}"/>
           <p class="text-description text-error error-message"></p>
         </div>
         <div class="input-group book-published-date">
           <label for="book-published-date" class="input-label text-sub-heading">Published date</label>
-          <input type="date" placeholder="MM/DD/YYYY" class="text-description input-box" name="book-published-date" />
+          <input type="date" placeholder="MM/DD/YYYY" class="text-description input-box" name="book-published-date" value="${
+						publishedDate || ''
+					}"/>
           <p class="text-description text-error error-message"></p>
         </div>
         <div class="input-group book-image">
@@ -41,13 +49,15 @@ export const bookFormTemplate = (options = {}) => {
           <input type="hidden" id="book-image-url" name="book-image-url" value="">
           <div class="book-preview">
             <span class="text-description book-name-preview"></span>
-            <img class="book-img-preview" src="" alt=""/>
+            <img class="book-img-preview" src="${imageUrl || ''}" alt=""/>
           </div>
           <p class="text-description text-error error-message"></p>
         </div>
         <div class="input-group book-description">
           <label for="book-description" class="input-label text-sub-heading">Description</label>
-          <textarea class="text-description input-box" name="book-description" placeholder="Description"></textarea>
+          <textarea class="text-description input-box" name="book-description" placeholder="Description">${
+						description || ''
+					}</textarea>
           <p class="text-description text-error error-message"></p>
         </div>
       </div>

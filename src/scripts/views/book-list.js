@@ -119,7 +119,6 @@ export default class BookView {
 		const existingElement = getElement(childElementSelector);
 		if (existingElement) parentElement.removeChild(existingElement);
 	};
-
 	displayBooks = (bookList, booksShowing, currentPage) => {
 		while (this.bookList.firstChild) {
 			this.bookList.removeChild(this.bookList.firstChild);
@@ -217,6 +216,43 @@ export default class BookView {
 				this.toggleSortStatus(event.target);
 				handler(this.sortStatus);
 			});
+		});
+	};
+
+	bindDisplayUpdateForm = (handler) => {
+		this.mainContent.addEventListener('click', async (event) => {
+			const bookItem = event.target.closest('.book-item');
+			if (bookItem) {
+				const bookId = bookItem.getAttribute('data-book-id');
+				const selectedBook = await handler(bookId);
+
+				// Create and show the book form
+				const bookForm = bookFormTemplate(selectedBook);
+				const bookFormContent = modalContentTemplate(bookForm);
+				const bookFormModal = createElement('div', 'modal');
+				bookFormModal.innerHTML = bookFormContent;
+				this.mainContent.appendChild(bookFormModal);
+
+				// Get negative buttons from the modal
+				const negativeButton = getElement('#' + BOOK_FORM.NEGATIVE_BUTTON_ID);
+
+				// Handling the 'Cancel' button click
+				negativeButton.addEventListener('click', () => {
+					this.mainContent.removeChild(bookFormModal); // Remove the modal from the DOM
+				});
+
+				const form = getElement('#book-form');
+				// Pre-fill the form
+				form.elements['book-name'].value = selectedBook.name;
+				form.elements['book-author'].value = selectedBook.author;
+				form.elements['book-published-date'].value = selectedBook.publishedDate;
+				form.elements['book-description'].textContent = selectedBook.description;
+
+				// Handling the 'Cancel' button click
+				negativeButton.addEventListener('click', () => {
+					this.mainContent.removeChild(bookFormModal); // Remove the modal from the DOM
+				});
+			}
 		});
 	};
 

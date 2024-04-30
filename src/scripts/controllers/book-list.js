@@ -20,6 +20,7 @@ export default class BookListController {
 		this.bookView.bindPageChange(this.handlePageChange);
 		this.bookView.bindInputChange(this.handleSearchBook);
 		this.bookView.bindSortBook(this.handleSortBookByName);
+		this.bookView.bindDisplayUpdateForm(this.handleGetBookById);
 		this.bookView.bindUpdateBook(this.handleUpdateBook);
 		this.bookView.bindDeleteBook(this.handleDeleteBook);
 	}
@@ -28,6 +29,11 @@ export default class BookListController {
 		const response = await this.bookModel.getImageUrl(fileUpload);
 		this.imageUrl = await response;
 		this.isImageLoading = true;
+	};
+
+	handleGetBookById = async (bookId) => {
+		const response = await this.bookModel.getBookById(bookId);
+		return response;
 	};
 
 	handleAddBook = async (data) => {
