@@ -1,8 +1,8 @@
-import { BOOK_FORM } from '../constants/book-form';
+import { BOOK_FORM } from '../constants';
 
 import uploadIcon from '../../assets/images/svg/upload.svg';
 
-export const bookFormTemplate = (book = {}, options = {}) => {
+export const bookFormTemplate = (formTitle = BOOK_FORM.TITLE.CREATE_BOOK, book = {}, options = {}) => {
 	const { name, description, authors, imageUrl, publishedDate } = book;
 
 	const {
@@ -16,7 +16,7 @@ export const bookFormTemplate = (book = {}, options = {}) => {
 
 	return `
     <form id=${formId} class="book-form">
-      <h2 class="form-heading text-heading">Create a new book marker</h2>
+      <h2 class="form-heading text-heading">${formTitle}</h2>
       <div class="form-content">
         <div class="input-group book-name">
           <label for="book-name" class="input-label text-sub-heading">Book name</label>

@@ -20,7 +20,7 @@ export default class BookListController {
 		this.bookView.bindPageChange(this.handlePageChange);
 		this.bookView.bindInputChange(this.handleSearchBook);
 		this.bookView.bindSortBook(this.handleSortBookByName);
-		this.bookView.bindDisplayUpdateForm(this.handleGetBookById);
+		this.bookView.bindDisplayEditForm(this.handleGetBookById);
 		this.bookView.bindUpdateBook(this.handleUpdateBook);
 		this.bookView.bindDeleteBook(this.handleDeleteBook);
 	}
