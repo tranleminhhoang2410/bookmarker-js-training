@@ -49,6 +49,7 @@ export default class BookView {
 
 	bindAddBook = (handler) => {
 		this.createBtn.addEventListener('click', (e) => {
+			e.preventDefault();
 			// Create and show the book form
 			const bookForm = bookFormTemplate();
 			const bookFormContent = modalContentTemplate(bookForm);
@@ -216,6 +217,69 @@ export default class BookView {
 				this.toggleSortStatus(event.target);
 				handler(this.sortStatus);
 			});
+		});
+	};
+
+	bindUpdateBook = (handler) => {
+		this.mainContent.addEventListener('click', (event) => {
+			const bookItem = event.target.closest('.book-item');
+			if (bookItem) {
+				// Create and show the book form
+				const bookForm = bookFormTemplate(bookItem);
+				const bookFormContent = modalContentTemplate(bookForm);
+				const bookFormModal = createElement('div', 'modal');
+				bookFormModal.innerHTML = bookFormContent;
+				this.mainContent.appendChild(bookFormModal);
+
+				const form = getElement('#book-form');
+
+				// Get negative buttons from the modal
+				const negativeButton = getElement('#' + BOOK_FORM.NEGATIVE_BUTTON_ID);
+
+				// Handling the 'Cancel' button click
+				negativeButton.addEventListener('click', () => {
+					this.mainContent.removeChild(bookFormModal); // Remove the modal from the DOM
+				});
+				const bookId = bookItem.getAttribute('data-book-id');
+
+				// Handling the 'Save' button click within the form
+				form.addEventListener('submit', (e) => {
+					e.preventDefault();
+
+					// Use FormData to retrieve form data
+					const formData = new FormData(form);
+					const name = formData.get('book-name');
+					const author = formData.get('book-author');
+					const publishedDate = formData.get('book-published-date');
+					const description = formData.get('book-description');
+
+					const data = {
+						name,
+						author,
+						publishedDate,
+						description,
+						createdAt: new Date(),
+						updatedAt: new Date(),
+						deletedAt: null
+					};
+
+					handler(bookId, data);
+
+					// Remove the modal from the DOM
+					this.mainContent.removeChild(bookFormModal);
+
+					// Show the toast message
+					const toastMessage = toastMessageTemplate();
+					const toastContainer = createElement('div', 'toast-container');
+					toastContainer.innerHTML = toastMessage;
+					this.mainContent.appendChild(toastContainer);
+
+					// Automatically hide the toast message after a certain time
+					setTimeout(() => {
+						this.mainContent.removeChild(toastContainer);
+					}, 3000); // Hide after 3 seconds (adjust as needed)
+				});
+			}
 		});
 	};
 
