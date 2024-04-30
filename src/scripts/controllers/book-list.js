@@ -44,7 +44,8 @@ export default class BookListController {
 
 		const response = await this.bookModel.addBook({ ...data, imageUrl: this.imageUrl });
 		this.renderBooks.unshift(response);
-		this.updateBookList(this.renderBooks);
+		this.originalBooks = [...this.renderBooks];
+		this.updateBookList(this.originalBooks);
 	};
 
 	displayBookList = async () => {

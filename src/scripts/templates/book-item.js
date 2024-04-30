@@ -2,15 +2,15 @@ import viewDetailsIcon from '../../assets/images/svg/right-forward.svg';
 import deleteIcon from '../../assets/images/svg/trash.svg';
 
 const bookItemTemplate = (book) => {
-  const { id, name, description, imageUrl } = book;
+	const { id, name, description, imageUrl } = book;
 
-  return `
+	return `
     <div class="book-primary-info">
       <h2 class="text-heading text-truncate book-name">${name}</h2>
       <p class="text-description text-truncate book-description">${description}</p>
       <div class="book-item-action">
         <button class="btn btn-square btn-secondary btn-view-details">
-          <a href='/book-details?id=${id}'>
+          <a href='/book-details.html?id=${id}'>
             <img loading="lazy" src=${viewDetailsIcon} alt="View Details" />
           </a>
         </button>

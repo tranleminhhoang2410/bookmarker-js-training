@@ -1,6 +1,5 @@
 // Constants
-import { PAGINATION } from '../constants/pagination';
-import { SEARCH } from '../constants/search';
+import { PAGINATION, SEARCH, FORM_VALIDATION } from '../constants';
 
 // Utils
 import { createElement, getElement, getElements, debounce } from '../utils';
@@ -82,7 +81,10 @@ export default class BookView {
 					name,
 					author,
 					publishedDate,
-					description
+					description,
+					createdAt: new Date(),
+					updatedAt: new Date(),
+					deletedAt: null
 				};
 
 				handler(data);
@@ -102,37 +104,6 @@ export default class BookView {
 				}, 3000); // Hide after 3 seconds (adjust as needed)
 			});
 		});
-	};
-
-	toggleSortStatus = (target) => {
-		const isAscending = target.classList.contains('asc');
-		const isDescending = target.classList.contains('desc');
-		const oppositeClass = isAscending ? 'desc' : 'asc';
-
-		let newStatus = '';
-
-		if (isAscending) {
-			newStatus = SORT.STATUS.ASCENDING;
-		} else if (isDescending) {
-			newStatus = SORT.STATUS.DESCENDING;
-		}
-
-		// Remove 'active' class from the opposite sort button if it exists
-		const oppositeButton = target.parentNode.querySelector(`.${oppositeClass}`);
-		if (oppositeButton) {
-			oppositeButton.classList.remove('active');
-		}
-
-		// Toggle the current sort status and the 'active' class on the current button
-		if (newStatus === this.sortStatus) {
-			// If the current status matches the new, reset to default and remove 'active'
-			this.sortStatus = '';
-			target.classList.remove('active');
-		} else {
-			// Otherwise, update to the new status and add 'active'
-			this.sortStatus = newStatus;
-			target.classList.add('active');
-		}
 	};
 
 	displaySkeletonBooks = (count) => {
@@ -209,6 +180,36 @@ export default class BookView {
 		});
 	};
 
+	toggleSortStatus = (target) => {
+		const isAscending = target.classList.contains('asc');
+		const isDescending = target.classList.contains('desc');
+		const oppositeClass = isAscending ? 'desc' : 'asc';
+
+		let newStatus = '';
+
+		if (isAscending) {
+			newStatus = SORT.STATUS.ASCENDING;
+		} else if (isDescending) {
+			newStatus = SORT.STATUS.DESCENDING;
+		}
+
+		// Remove 'active' class from the opposite sort button if it exists
+		const oppositeButton = target.parentNode.querySelector(`.${oppositeClass}`);
+		if (oppositeButton) {
+			oppositeButton.classList.remove('active');
+		}
+
+		// Toggle the current sort status and the 'active' class on the current button
+		if (newStatus === this.sortStatus) {
+			// If the current status matches the new, reset to default and remove 'active'
+			this.sortStatus = '';
+			target.classList.remove('active');
+		} else {
+			// Otherwise, update to the new status and add 'active'
+			this.sortStatus = newStatus;
+			target.classList.add('active');
+		}
+	};
 	bindSortBook = (handler) => {
 		this.sortBtns.forEach((btn) => {
 			btn.addEventListener('click', (event) => {

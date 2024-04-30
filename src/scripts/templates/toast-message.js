@@ -1,3 +1,5 @@
+import closeIcon from '../../assets/images/svg/trash.svg';
+
 export const toastMessageTemplate = (message = 'Your actions executed successfully!', description) => `
   <div class="toast-container success">
     <h2 class="text-heading toast-message">${message}</h2>

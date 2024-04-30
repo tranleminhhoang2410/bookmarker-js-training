@@ -19,14 +19,17 @@ export const bookFormTemplate = (options = {}) => {
         <div class="input-group book-name">
           <label for="book-name" class="input-label text-sub-heading">Book name</label>
           <input type="text" class="text-description input-box" name="book-name" placeholder="Book name"/>
+          <p class="text-description text-error error-message"></p>
         </div>
         <div class="input-group book-author">
           <label for="book-author" class="input-label text-sub-heading">Author</label>
           <input type="text" class="text-description input-box" name="book-author" placeholder="Author"/>
+          <p class="text-description text-error error-message"></p>
         </div>
         <div class="input-group book-published-date">
           <label for="book-published-date" class="input-label text-sub-heading">Published date</label>
           <input type="date" placeholder="MM/DD/YYYY" class="text-description input-box" name="book-published-date" />
+          <p class="text-description text-error error-message"></p>
         </div>
         <div class="input-group book-image">
           <label for="book-image" class="input-label text-sub-heading">Image</label>
@@ -40,10 +43,12 @@ export const bookFormTemplate = (options = {}) => {
             <span class="text-description book-name-preview"></span>
             <img class="book-img-preview" src="" alt=""/>
           </div>
+          <p class="text-description text-error error-message"></p>
         </div>
         <div class="input-group book-description">
           <label for="book-description" class="input-label text-sub-heading">Description</label>
           <textarea class="text-description input-box" name="book-description" placeholder="Description"></textarea>
+          <p class="text-description text-error error-message"></p>
         </div>
       </div>
       <div class="form-action">
