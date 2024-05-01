@@ -1,4 +1,4 @@
-import { API_PATH } from '../constants';
+import { API_PATH, REQUEST } from '../constants';
 import { request } from '../utils';
 
 //Book API
@@ -11,12 +11,8 @@ const uploadImageUrl = process.env.IMG_UPLOAD_URL + 'key=' + process.env.IMG_UPL
 
 export const getImageUrlServices = async (formData) => {
 	try {
-		const response = await request(uploadImageUrl, 'POST', formData, false); // Notice the `false` here
-		if (response.data && response.data.url) {
-			return response.data.url;
-		} else {
-			throw new Error('Image URL not found in response');
-		}
+		const response = await request(uploadImageUrl, 'POST', formData);
+		return response.data.url;
 	} catch (error) {
 		throw new Error(error);
 	}
