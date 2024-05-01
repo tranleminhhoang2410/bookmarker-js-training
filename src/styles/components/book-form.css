@@ -111,6 +111,11 @@
 	right: 0;
 }
 
+.book-form .book-img-preview-frame {
+	width: 95px;
+	height: 116px;
+}
+
 @media (min-width: 576px) {
 	.book-form {
 		width: unset;

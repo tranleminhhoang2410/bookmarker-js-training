@@ -48,7 +48,7 @@ export const getBookByIdService = async (bookId) => {
 	}
 };
 
-export const updateBookService = async (bookId, bookData) => {
+export const editBookService = async (bookId, bookData) => {
 	try {
 		const response = await request(`${bookApiUrl}/${bookId}`, 'PUT', bookData);
 		return response;

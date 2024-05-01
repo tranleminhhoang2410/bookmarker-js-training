@@ -74,13 +74,13 @@ export default class BookView {
 				// Use FormData to retrieve form data
 				const formData = new FormData(form);
 				const name = formData.get('book-name');
-				const author = formData.get('book-author');
+				const authors = formData.get('book-authors');
 				const publishedDate = formData.get('book-published-date');
 				const description = formData.get('book-description');
 
 				const data = {
 					name,
-					author,
+					authors,
 					publishedDate,
 					description,
 					createdAt: new Date(),
@@ -119,6 +119,7 @@ export default class BookView {
 		const existingElement = getElement(childElementSelector);
 		if (existingElement) parentElement.removeChild(existingElement);
 	};
+
 	displayBooks = (bookList, booksShowing, currentPage) => {
 		while (this.bookList.firstChild) {
 			this.bookList.removeChild(this.bookList.firstChild);
@@ -219,19 +220,60 @@ export default class BookView {
 		});
 	};
 
-	bindDisplayEditForm = (handler) => {
+	bindEditBook = (displayFormHandler, editHandler) => {
 		this.mainContent.addEventListener('click', async (event) => {
 			const bookItem = event.target.closest('.book-item');
 			if (bookItem) {
 				const bookId = bookItem.getAttribute('data-book-id');
-				const selectedBook = await handler(bookId);
+				const selectedBook = await displayFormHandler(bookId);
 
 				// Create and show the book form
-				const bookForm = bookFormTemplate(BOOK_FORM.TITLE.EDIT_BOOK(selectedBook.name), selectedBook);
+				const bookForm = bookFormTemplate(selectedBook, {
+					formTitle: BOOK_FORM.TITLE.EDIT_BOOK(selectedBook.name)
+				});
 				const bookFormContent = modalContentTemplate(bookForm);
 				const bookFormModal = createElement('div', 'modal');
 				bookFormModal.innerHTML = bookFormContent;
 				this.mainContent.appendChild(bookFormModal);
+
+				const form = getElement('#book-form');
+
+				// Handling the 'Save' button click within the form
+				form.addEventListener('submit', (e) => {
+					e.preventDefault();
+
+					// Use FormData to retrieve form data
+					const formData = new FormData(form);
+					const name = formData.get('book-name');
+					const authors = formData.get('book-authors');
+					const publishedDate = formData.get('book-published-date');
+					const description = formData.get('book-description');
+
+					const data = {
+						name,
+						authors,
+						publishedDate,
+						description,
+						updatedAt: new Date(),
+						deletedAt: null
+					};
+
+					editHandler(bookId, data);
+
+					// Remove the modal from the DOM
+					this.mainContent.removeChild(bookFormModal);
+
+					// Show the toast message
+					const toastMessage = toastMessageTemplate();
+					const toastContainer = createElement('div', 'toast-container');
+					toastContainer.innerHTML = toastMessage;
+					this.mainContent.appendChild(toastContainer);
+
+					// Automatically hide the toast message after a certain time
+					setTimeout(() => {
+						this.mainContent.removeChild(toastContainer);
+					}, 3000); // Hide after 3 seconds (adjust as needed)
+				});
 
 				// Get negative buttons from the modal
 				const negativeButton = getElement('#' + BOOK_FORM.NEGATIVE_BUTTON_ID);
@@ -240,84 +282,9 @@ export default class BookView {
 				negativeButton.addEventListener('click', () => {
 					this.mainContent.removeChild(bookFormModal); // Remove the modal from the DOM
 				});
-
-				const form = getElement('#book-form');
-				// Pre-fill the form
-				form.elements['book-name'].value = selectedBook.name;
-				form.elements['book-author'].value = selectedBook.author;
-				form.elements['book-published-date'].value = selectedBook.publishedDate;
-				form.elements['book-description'].textContent = selectedBook.description;
-
-				// Handling the 'Cancel' button click
-				negativeButton.addEventListener('click', () => {
-					this.mainContent.removeChild(bookFormModal); // Remove the modal from the DOM
-				});
 			}
 		});
 	};
-
-	// bindUpdateBook = (handler) => {
-	// 	this.mainContent.addEventListener('click', (event) => {
-	// 		const bookItem = event.target.closest('.book-item');
-	// 		if (bookItem) {
-	// 			// Create and show the book form
-	// 			const bookForm = bookFormTemplate(bookItem);
-	// 			const bookFormContent = modalContentTemplate(bookForm);
-	// 			const bookFormModal = createElement('div', 'modal');
-	// 			bookFormModal.innerHTML = bookFormContent;
-	// 			this.mainContent.appendChild(bookFormModal);
-
-	// 			const form = getElement('#book-form');
-
-	// 			// Get negative buttons from the modal
-	// 			const negativeButton = getElement('#' + BOOK_FORM.NEGATIVE_BUTTON_ID);
-
-	// 			// Handling the 'Cancel' button click
-	// 			negativeButton.addEventListener('click', () => {
-	// 				this.mainContent.removeChild(bookFormModal); // Remove the modal from the DOM
-	// 			});
-	// 			const bookId = bookItem.getAttribute('data-book-id');
-
-	// 			// Handling the 'Save' button click within the form
-	// 			form.addEventListener('submit', (e) => {
-	// 				e.preventDefault();
-
-	// 				// Use FormData to retrieve form data
-	// 				const formData = new FormData(form);
-	// 				const name = formData.get('book-name');
-	// 				const author = formData.get('book-author');
-	// 				const publishedDate = formData.get('book-published-date');
-	// 				const description = formData.get('book-description');
-
-	// 				const data = {
-	// 					name,
-	// 					author,
-	// 					publishedDate,
-	// 					description,
-	// 					createdAt: new Date(),
-	// 					updatedAt: new Date(),
-	// 					deletedAt: null
-	// 				};
-
-	// 				handler(bookId, data);
-
-	// 				// Remove the modal from the DOM
-	// 				this.mainContent.removeChild(bookFormModal);
-
-	// 				// Show the toast message
-	// 				const toastMessage = toastMessageTemplate();
-	// 				const toastContainer = createElement('div', 'toast-container');
-	// 				toastContainer.innerHTML = toastMessage;
-	// 				this.mainContent.appendChild(toastContainer);
-
-	// 				// Automatically hide the toast message after a certain time
-	// 				setTimeout(() => {
-	// 					this.mainContent.removeChild(toastContainer);
-	// 				}, 3000); // Hide after 3 seconds (adjust as needed)
-	// 			});
-	// 		}
-	// 	});
-	// };
 
 	bindDeleteBook = (handler) => {
 		this.mainContent.addEventListener('click', (event) => {

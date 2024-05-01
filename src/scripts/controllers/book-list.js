@@ -20,8 +20,7 @@ export default class BookListController {
 		this.bookView.bindPageChange(this.handlePageChange);
 		this.bookView.bindInputChange(this.handleSearchBook);
 		this.bookView.bindSortBook(this.handleSortBookByName);
-		this.bookView.bindDisplayEditForm(this.handleGetBookById);
-		this.bookView.bindUpdateBook(this.handleUpdateBook);
+		this.bookView.bindEditBook(this.handleGetBookById, this.handleEditBook);
 		this.bookView.bindDeleteBook(this.handleDeleteBook);
 	}
 
@@ -104,19 +103,8 @@ export default class BookListController {
 		this.updateBookList(this.renderBooks);
 	};
 
-	handleUpdateBook = async (bookId, bookData) => {
-		if (!this.isImageLoading) {
-			// Nếu isImageLoading không true, chờ cho đến khi nó trở thành true
-			await new Promise((resolve) => {
-				const interval = setInterval(() => {
-					if (this.isImageLoading) {
-						clearInterval(interval);
-						resolve();
-					}
-				}, 100); // Kiểm tra mỗi 100ms
-			});
-		}
-		await this.bookModel.updateBook(bookId, { ...bookData, imageUrl: this.imageUrl });
+	handleEditBook = async (bookId, bookData) => {
+		await this.bookModel.editBook(bookId, { ...bookData, imageUrl: this.imageUrl });
 		this.displayBookList();
 	};
 

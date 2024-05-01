@@ -2,7 +2,7 @@ import {
 	addBookService,
 	getBooksService,
 	deleteBookService,
-	updateBookService,
+	editBookService,
 	getBookByIdService,
 	getImageUrlServices
 } from '../services/bookServices';
@@ -23,8 +23,8 @@ export default class BookModel {
 		return response;
 	};
 
-	updateBook = async (bookId, bookData) => {
-		await updateBookService(bookId, bookData);
+	editBook = async (bookId, bookData) => {
+		await editBookService(bookId, bookData);
 	};
 
 	deleteBook = async (bookId) => {
