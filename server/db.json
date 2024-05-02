@@ -108,6 +108,61 @@
       "createdAt": "1680658968217",
       "updatedAt": "1680658968217",
       "deletedAt": null
+    },
+    {
+      "id": 17
+    },
+    {
+      "id": 18
+    },
+    {
+      "id": 19
+    },
+    {
+      "id": 20
+    },
+    {
+      "id": 21
+    },
+    {
+      "name": "C Programming",
+      "description": "The Ultimate Way to Learn the Fundamentals of the C Language. The Ultimate Way to Learn the Fundamentals of the C Language. The Ultimate Way to Learn the Fundamentals of the C Language.. The Ultimate Way to Learn the Fundamentals of the C Language . The Ultimate Way to Learn the Fundamentals of the C Language",
+      "authors": [
+        "Harry H. Chaudhary"
+      ],
+      "imageUrl": "http://books.google.com/books/content?id=7LIABAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "publishedDate": "2014-07-07",
+      "createdAt": "1680658968254",
+      "updatedAt": "1680658968254",
+      "deletedAt": null,
+      "id": 22
+    },
+    {
+      "name": "aa",
+      "description": "aaa",
+      "authors": [
+        "Hoang"
+      ],
+      "imageUrl": "https://i.ibb.co/sqVHHNd/huy-ngo-background.png",
+      "publishedDate": "2014-11-24",
+      "createdAt": "1680658968254",
+      "updatedAt": "1680658968254",
+      "deletedAt": null,
+      "id": 23
+    },
+    {
+      "id": 24
+    },
+    {
+      "name": "â",
+      "authors": "aa",
+      "publishedDate": "2024-05-15",
+      "description": "aaaa",
+      "imageUrl": "https://i.ibb.co/QQmZQ38/hoang-nguyen-background-2x.png",
+      "createdAt": null,
+      "updatedAt": null,
+      "deletedAt": null,
+      "id": 25
     }
   ]
 }

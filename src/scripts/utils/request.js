@@ -8,14 +8,12 @@ export const request = async (url, method, data) => {
 	};
 
 	if (method !== 'GET') {
-		if (options.headers['Content-Type'] === REQUEST.CONTENT_TYPE.APPLICATION_JSON) {
-			options.body = JSON.stringify(data);
-		}
 		if (data instanceof FormData) {
 			options.body = data;
+		} else {
+			options.body = JSON.stringify(data);
+			options.headers['Content-Type'] = REQUEST.CONTENT_TYPE.APPLICATION_JSON;
 		}
-	} else {
-		options.body = null;
 	}
 
 	const response = await fetch(url, options);

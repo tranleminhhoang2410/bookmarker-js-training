@@ -14,8 +14,7 @@ export default class BookListController {
 	}
 
 	async init() {
-		this.bookView.bindGetImageUrl(this.handleGetImageUrl);
-		this.bookView.bindAddBook(this.handleAddBook);
+		this.bookView.bindAddBook(this.handleGetImageUrl, this.handleAddBook);
 		await this.displayBookList();
 		this.bookView.bindPageChange(this.handlePageChange);
 		this.bookView.bindInputChange(this.handleSearchBook);
@@ -26,8 +25,7 @@ export default class BookListController {
 
 	handleGetImageUrl = async (fileUpload) => {
 		const response = await this.bookModel.getImageUrl(fileUpload);
-		this.imageUrl = await response;
-		this.isImageLoading = true;
+		return response;
 	};
 
 	handleGetBookById = async (bookId) => {
@@ -36,19 +34,7 @@ export default class BookListController {
 	};
 
 	handleAddBook = async (data) => {
-		if (!this.isImageLoading) {
-			// Nếu isImageLoading không true, chờ cho đến khi nó trở thành true
-			await new Promise((resolve) => {
-				const interval = setInterval(() => {
-					if (this.isImageLoading) {
-						clearInterval(interval);
-						resolve();
-					}
-				}, 100); // Kiểm tra mỗi 100ms
-			});
-		}
-
-		const response = await this.bookModel.addBook({ ...data, imageUrl: this.imageUrl });
+		const response = await this.bookModel.addBook(data);
 		this.renderBooks.unshift(response);
 		this.originalBooks = [...this.renderBooks];
 		this.updateBookList(this.originalBooks);

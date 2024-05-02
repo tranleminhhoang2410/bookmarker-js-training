@@ -2,7 +2,7 @@
 import { PAGINATION, SEARCH, BOOK_FORM, CONFIRM_DIALOG, SORT, TOAST } from '../constants';
 
 // Utils
-import { createElement, getElement, getElements, debounce, showToast } from '../utils';
+import { createElement, getElement, getElements, debounce, showToast, showModal, hideModal } from '../utils';
 
 // Templates
 import { bookItemTemplate } from '../templates/book-item';
@@ -23,6 +23,7 @@ export default class BookView {
 		this.sortBtns = getElements('.btn-sort');
 		this.createBtn = getElement('#btn-create');
 		this.sortStatus = '';
+		this.selectedBookImageUrl = '';
 	}
 
 	bindGetImageUrl = (handler) => {
@@ -46,24 +47,46 @@ export default class BookView {
 		});
 	};
 
-	bindAddBook = (handler) => {
+	bindAddBook = (getImageUrlHandler, addHandler) => {
 		this.createBtn.addEventListener('click', (e) => {
 			e.preventDefault();
 			// Create and show the book form
 			const bookForm = bookFormTemplate();
 			const bookFormContent = modalContentTemplate(bookForm);
 			const bookFormModal = createElement('div', 'modal');
-			bookFormModal.innerHTML = bookFormContent;
+
+			showModal(bookFormModal, bookFormContent);
+
 			this.mainContent.appendChild(bookFormModal);
 
+			//Get form element
 			const form = getElement('#book-form');
+
+			const fileUpload = getElement('#file-upload');
+			const bookImgPreview = getElement('.book-img-preview');
+			const bookNamePreview = getElement('.book-name-preview');
+			const uploadBtn = getElement('.btn-upload');
+
+			// Get image url
+			fileUpload.addEventListener('change', async (event) => {
+				const file = event.target.files[0];
+				bookNamePreview.innerHTML = `Selected: ${file.name}`;
+				bookImgPreview.src = URL.createObjectURL(file);
+				bookImgPreview.style = 'width: 96px; height: 116px';
+				uploadBtn.style = 'opacity: 0';
+
+				const formData = new FormData();
+				formData.append('image', file);
+
+				this.selectedBookImageUrl = await getImageUrlHandler(formData);
+			});
 
 			// Get negative buttons from the modal
 			const negativeButton = getElement('#' + BOOK_FORM.NEGATIVE_BUTTON_ID);
 
 			// Handling the 'Cancel' button click
 			negativeButton.addEventListener('click', () => {
-				this.mainContent.removeChild(bookFormModal); // Remove the modal from the DOM
+				hideModal(bookFormModal);
 			});
 
 			// Handling the 'Save' button click within the form
@@ -82,19 +105,24 @@ export default class BookView {
 					authors,
 					publishedDate,
 					description,
-					createdAt: new Date(),
-					updatedAt: new Date(),
+					imageUrl: this.selectedBookImageUrl,
+					createdAt: null,
+					updatedAt: null,
 					deletedAt: null
 				};
 
-				handler(data);
+				addHandler(data);
 
 				// Remove the modal from the DOM
-				this.mainContent.removeChild(bookFormModal);
+				hideModal(bookFormModal);
 
 				// Show the toast message
 				const toastContainer = createElement('div', 'toast-container');
-				showToast(toastContainer, toastTemplate(), TOAST.DISPLAY_TIME);
+				showToast(
+					toastContainer,
+					toastTemplate(TOAST.MESSAGE.SUCCESS, TOAST.DESCRIPTION.ADDED_BOOK),
+					TOAST.DISPLAY_TIME
+				);
 
 				this.mainContent.appendChild(toastContainer);
 			});
@@ -232,7 +260,9 @@ export default class BookView {
 				});
 				const bookFormContent = modalContentTemplate(bookForm);
 				const bookFormModal = createElement('div', 'modal');
-				bookFormModal.innerHTML = bookFormContent;
+
+				showModal(bookFormModal, bookFormContent);
+
 				this.mainContent.appendChild(bookFormModal);
 
 				const form = getElement('#book-form');
@@ -274,7 +304,7 @@ export default class BookView {
 
 				// Handling the 'Cancel' button click
 				negativeButton.addEventListener('click', () => {
-					this.mainContent.removeChild(bookFormModal); // Remove the modal from the DOM
+					hideModal(bookFormModal); // Remove the modal from the DOM
 				});
 			}
 		});
@@ -292,7 +322,9 @@ export default class BookView {
 				const confirmDialog = confirmDialogTemplate();
 				const confirmModalContent = modalContentTemplate(confirmDialog);
 				const confirmModal = createElement('div', 'modal');
-				confirmModal.innerHTML = confirmModalContent;
+
+				showModal(confirmModal, confirmModalContent);
+
 				this.mainContent.appendChild(confirmModal);
 
 				// Get the positive and negative buttons from the modal
@@ -314,8 +346,7 @@ export default class BookView {
 
 				// Handling the 'Cancel' button click
 				negativeButton.addEventListener('click', () => {
-					// Remove the modal from the DOM
-					this.mainContent.removeChild(confirmModal);
+					hideModal(confirmModal);
 				});
 			}
 		});
