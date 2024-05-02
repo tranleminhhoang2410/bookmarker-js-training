@@ -14,19 +14,6 @@
       "deletedAt": null
     },
     {
-      "id": 5,
-      "name": "Java Programming for Beginners",
-      "description": "Learn the Fundamentals of Programming with Java",
-      "authors": [
-        "Mark Lassoff"
-      ],
-      "imageUrl": "http://books.google.com/books/content?id=3RhKDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-      "publishedDate": "2017-10-31",
-      "createdAt": "1680658968257",
-      "updatedAt": "1680658968257",
-      "deletedAt": null
-    },
-    {
       "id": 9,
       "name": "Decoding JavaScript",
       "description": "A Simple Guide for the Not-so-Simple JavaScript Concepts, Libraries, Tools, and Frameworks (English Edition)",

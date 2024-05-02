@@ -216,6 +216,11 @@ export default class BookView {
 
 	bindEditBook = (displayFormHandler, editHandler) => {
 		this.mainContent.addEventListener('click', async (event) => {
+			const btnDelete = event.target.closest('.btn-delete');
+			if (btnDelete) {
+				return;
+			}
+
 			const bookItem = event.target.closest('.book-item');
 			if (bookItem) {
 				const bookId = bookItem.getAttribute('data-book-id');
@@ -280,6 +285,7 @@ export default class BookView {
 			const btnDelete = event.target.closest('.btn-delete');
 
 			if (btnDelete) {
+				event.stopPropagation();
 				const bookItem = event.target.closest('.book-item');
 				const bookId = bookItem.getAttribute('data-book-id');
 				// Create and show the confirm dialog
