@@ -1,18 +1,17 @@
 // Constants
-import { PAGINATION, SEARCH, FORM_VALIDATION } from '../constants';
+import { PAGINATION, SEARCH, BOOK_FORM, CONFIRM_DIALOG, SORT, TOAST } from '../constants';
 
 // Utils
-import { createElement, getElement, getElements, debounce } from '../utils';
+import { createElement, getElement, getElements, debounce, showToast } from '../utils';
 
 // Templates
-import bookItemTemplate from '../templates/book-item';
+import { bookItemTemplate } from '../templates/book-item';
 import { listEmptyTemplate } from '../templates/list-empty';
 import { paginationTemplate } from '../templates/pagination';
 
-import { BOOK_FORM, CONFIRM_DIALOG, SORT } from '../constants';
 import { confirmDialogTemplate } from './../templates/confirm-dialog';
-import { modalContentTemplate } from '../templates/modal';
-import { toastMessageTemplate } from '../templates/toast-message';
+import { modalContentTemplate } from '../templates/modal-content';
+import { toastTemplate } from '../templates/toast';
 import { bookFormTemplate } from '../templates/book-form';
 
 export default class BookView {
@@ -94,15 +93,10 @@ export default class BookView {
 				this.mainContent.removeChild(bookFormModal);
 
 				// Show the toast message
-				const toastMessage = toastMessageTemplate();
 				const toastContainer = createElement('div', 'toast-container');
-				toastContainer.innerHTML = toastMessage;
-				this.mainContent.appendChild(toastContainer);
+				showToast(toastContainer, toastTemplate(), TOAST.DISPLAY_TIME);
 
-				// Automatically hide the toast message after a certain time
-				setTimeout(() => {
-					this.mainContent.removeChild(toastContainer);
-				}, 3000); // Hide after 3 seconds (adjust as needed)
+				this.mainContent.appendChild(toastContainer);
 			});
 		});
 	};
@@ -264,15 +258,10 @@ export default class BookView {
 					this.mainContent.removeChild(bookFormModal);
 
 					// Show the toast message
-					const toastMessage = toastMessageTemplate();
 					const toastContainer = createElement('div', 'toast-container');
-					toastContainer.innerHTML = toastMessage;
-					this.mainContent.appendChild(toastContainer);
+					showToast(toastContainer, toastTemplate(), TOAST.DISPLAY_TIME);
 
-					// Automatically hide the toast message after a certain time
-					setTimeout(() => {
-						this.mainContent.removeChild(toastContainer);
-					}, 3000); // Hide after 3 seconds (adjust as needed)
+					this.mainContent.appendChild(toastContainer);
 				});
 
 				// Get negative buttons from the modal
@@ -286,14 +275,13 @@ export default class BookView {
 		});
 	};
 
-	bindDeleteBook = (handler) => {
+	bindDeleteBook(handler) {
 		this.mainContent.addEventListener('click', (event) => {
 			const btnDelete = event.target.closest('.btn-delete');
 
 			if (btnDelete) {
 				const bookItem = event.target.closest('.book-item');
 				const bookId = bookItem.getAttribute('data-book-id');
-
 				// Create and show the confirm dialog
 				const confirmDialog = confirmDialogTemplate();
 				const confirmModalContent = modalContentTemplate(confirmDialog);
@@ -302,31 +290,28 @@ export default class BookView {
 				this.mainContent.appendChild(confirmModal);
 
 				// Get the positive and negative buttons from the modal
-				const positiveButton = getElement('#' + CONFIRM_DIALOG.POSITIVE_BUTTON_ID);
-				const negativeButton = getElement('#' + CONFIRM_DIALOG.NEGATIVE_BUTTON_ID);
+				const positiveButton = getElement(`#${CONFIRM_DIALOG.POSITIVE_BUTTON_ID}`);
+				const negativeButton = getElement(`#${CONFIRM_DIALOG.NEGATIVE_BUTTON_ID}`);
 
 				// Handling the 'OK' button click
 				positiveButton.addEventListener('click', () => {
-					handler(bookId); // Call the delete handler with the bookId
-					this.mainContent.removeChild(confirmModal); // Remove the modal from the DOM
+					handler(bookId);
+					// Remove the modal from the DOM
+					this.mainContent.removeChild(confirmModal);
 
 					// Show the toast message
-					const toastMessage = toastMessageTemplate('Book deleted', `Book with ID ${bookId} has been deleted.`);
 					const toastContainer = createElement('div', 'toast-container');
-					toastContainer.innerHTML = toastMessage;
-					this.mainContent.appendChild(toastContainer);
+					showToast(toastContainer, toastTemplate(), TOAST.DISPLAY_TIME);
 
-					// Automatically hide the toast message after a certain time
-					setTimeout(() => {
-						this.mainContent.removeChild(toastContainer);
-					}, 3000); // Hide after 3 seconds (adjust as needed)
+					this.mainContent.appendChild(toastContainer);
 				});
 
 				// Handling the 'Cancel' button click
 				negativeButton.addEventListener('click', () => {
-					this.mainContent.removeChild(confirmModal); // Remove the modal from the DOM
+					// Remove the modal from the DOM
+					this.mainContent.removeChild(confirmModal);
 				});
 			}
 		});
-	};
+	}
 }

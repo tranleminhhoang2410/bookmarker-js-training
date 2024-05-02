@@ -1,7 +1,7 @@
 import viewDetailsIcon from '../../assets/images/svg/right-forward.svg';
 import deleteIcon from '../../assets/images/svg/trash.svg';
 
-const bookItemTemplate = (book) => {
+export const bookItemTemplate = (book) => {
 	const { id, name, description, imageUrl } = book;
 
 	return `
@@ -27,5 +27,3 @@ const bookItemTemplate = (book) => {
     </div>
   `;
 };
-
-export default bookItemTemplate;
