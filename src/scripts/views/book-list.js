@@ -143,6 +143,7 @@ export default class BookView {
 	};
 
 	displayBooks = (bookList, booksShowing, currentPage) => {
+		console.log(currentPage);
 		while (this.bookList.firstChild) {
 			this.bookList.removeChild(this.bookList.firstChild);
 		}

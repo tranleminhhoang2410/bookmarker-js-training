@@ -96,6 +96,17 @@ export default class BookListController {
 
 	handleDeleteBook = async (bookId) => {
 		await this.bookModel.deleteBook(bookId);
-		this.displayBookList();
+		// Refresh the book list from the model
+		this.renderBooks = await this.bookModel.getBooks();
+		this.originalBooks = [...this.renderBooks];
+
+		// Adjust the current page if the last item on a page was deleted
+		const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+		if (startIndex >= this.renderBooks.length && this.currentPage > 1) {
+			this.currentPage--; // Move back one page if the current page has no items
+		}
+
+		// Update the view with the new list of books
+		this.updateBookList(this.renderBooks);
 	};
 }
