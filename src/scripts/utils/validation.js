@@ -1,54 +1,72 @@
-import { FORM_VALIDATION } from '@/constants';
-import { getElement } from './ui-control';
+import { VALIDATION } from '../constants/validation';
 
-const isRequired = (value) => !!value && !!value.trim();
-
-const validateRequired = (field, value = '') =>
-	isRequired(value) ? undefined : FORM_VALIDATION.MESSAGES.REQUIRED(field);
-
-const isValidDate = (date) => !isNaN(date.getTime());
-
-const validatePublicationDate = (publicationDate) => {
-	// Check if the date object is valid
-	if (!isValidDate) {
-		return undefined;
+const rules = {
+	name: {
+		isRequired: true,
+		maxLength: 120
+	},
+	authors: {
+		isRequired: true
+	},
+	publishedDate: {
+		isRequired: true,
+		isFutureDate: false
+	},
+	image: {
+		isRequired: true
+	},
+	description: {
+		isRequired: true,
+		maxLength: 500
 	}
-
-	const today = new Date();
-
-	// Check if the publication date is in the future
-	if (publicationDate > today) {
-		return FORM_VALIDATION.MESSAGES.INVALID_PUBLISH_DATE;
-	}
-
-	// If all checks pass, the date is valid
-	return undefined;
-};
-const isValidImageFormat = (url) => {
-	const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp', 'q=80'];
-
-	const urlLower = url.toLowerCase();
-	return imageExtensions.some((extension) => urlLower.endsWith('.' + extension) || urlLower.endsWith('&' + extension));
 };
 
-const appendErrorMessage = (inputElement, errorMessage) => {
+// Show input error message
+export const appendErrorMessage = (inputElement, errorMessage) => {
 	const errorElement = inputElement.parentElement.lastElementChild;
 	errorElement.textContent = errorMessage;
 };
 
-const removeErrorMessage = (inputElement) => {
+export const removeErrorMessage = (inputElement) => {
 	const errorElement = inputElement.parentElement.lastElementChild;
 	errorElement.textContent = '';
 };
 
-const validateField = (fieldName, fieldValue, validateFunction, errorMessage) => {
-	const inputElement = getElement('#' + fieldName);
+// Hàm validate filed cho một trường đầu vào và xử lý thông báo lỗi
+export const validateField = (inputElement, fieldName, value) => {
+	const errorMessage = validateForm(fieldName, value);
 
-	if (!validateFunction(fieldValue)) {
+	if (errorMessage) {
 		appendErrorMessage(inputElement, errorMessage);
 	} else {
 		removeErrorMessage(inputElement);
 	}
 };
 
-export { isValidDate, validateRequired, validatePublicationDate, isValidImageFormat };
+export const validateForm = (fieldName, value) => {
+	const fieldRules = rules[fieldName];
+
+	// Kiểm tra bắt buộc nhập
+	if (fieldRules.isRequired && !value.trim()) {
+		return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required!`;
+	}
+
+	// Kiểm tra độ dài tối đa
+	if (fieldRules.maxLength && value.trim().length > fieldRules.maxLength) {
+		return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} must be at most ${
+			fieldRules.maxLength
+		} characters!`;
+	}
+
+	// Kiểm tra URL hình ảnh
+	if (fieldName === 'imageUrl' && fieldRules.isRequired && !isValidImageUrl(value)) {
+		return 'Invalid image URL!';
+	}
+
+	// Kiểm tra ngày xuất bản trong tương lai nếu có giá trị được chọn
+	if (fieldName === 'publishedDate' && value && new Date(value) > new Date()) {
+		return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} must be in the past!`;
+	}
+
+	return ''; // Trả về chuỗi rỗng nếu không có lỗi
+};

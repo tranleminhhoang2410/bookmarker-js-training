@@ -21,17 +21,17 @@ export const bookFormTemplate = (book = {}, options = {}) => {
       <div class="form-content">
         <div class="input-group book-name">
           <label for="book-name" class="input-label text-sub-heading">Book name</label>
-          <input type="text" class="text-description input-box" name="book-name" placeholder="Book name" value="${name}"/>
+          <input type="text" class="text-description input-box" data-field-name="name" data-field-validate="Book's name" name="book-name" placeholder="Book name" value="${name}"/>
           <p class="text-description text-error error-message"></p>
         </div>
         <div class="input-group book-author">
-          <label for="book-authors" class="input-label text-sub-heading">Author</label>
-          <input type="text" class="text-description input-box" name="book-authors" placeholder="Author" value="${authors}"/>
+          <label for="book-authors" class="input-label text-sub-heading">Author(s)</label>
+          <input type="text" class="text-description input-box" data-field-name="authors" data-field-validate="Book's author(s)" name="book-authors" placeholder="Author(s)" value="${authors}"/>
           <p class="text-description text-error error-message"></p>
         </div>
         <div class="input-group book-published-date">
           <label for="book-published-date" class="input-label text-sub-heading">Published date</label>
-          <input type="date" placeholder="MM/DD/YYYY" class="text-description input-box" name="book-published-date" value="${publishedDate}"/>
+          <input type="date" placeholder="MM/DD/YYYY" data-field-name="publishedDate" data-field-validate="Book's published date" class="text-description input-box" name="book-published-date" value="${publishedDate}"/>
           <p class="text-description text-error error-message"></p>
         </div>
         <div class="input-group book-image">
@@ -40,7 +40,7 @@ export const bookFormTemplate = (book = {}, options = {}) => {
             <img src=${uploadIcon} alt="upload" />
             <span class="upload-text text-sub-heading text-light">Upload</span>
           </button>
-          <input id="file-upload" accept="image/*" type="file" class="text-description input-box" name="book-image" placeholder="Book name"/>
+          <input id="file-upload" accept="image/*" type="file" data-field-name="image" data-field-validate="Book's image" class="text-description input-box" name="book-image" />
           <input type="hidden" id="book-image-url" name="book-image-url" value="">
           <div class="book-preview">
             <span class="text-description book-name-preview"></span>
@@ -52,7 +52,7 @@ export const bookFormTemplate = (book = {}, options = {}) => {
         </div>
         <div class="input-group book-description">
           <label for="book-description" class="input-label text-sub-heading">Description</label>
-          <textarea class="text-description input-box" name="book-description" placeholder="Description">${description}</textarea>
+          <textarea class="text-description input-box" name="book-description" data-field-name="description" data-field-validate="Book's description" placeholder="Description">${description}</textarea>
           <p class="text-description text-error error-message"></p>
         </div>
       </div>

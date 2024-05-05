@@ -116,6 +116,10 @@
 	height: 116px;
 }
 
+.book-form .error-message {
+	min-height: 20px;
+}
+
 @media (min-width: 576px) {
 	.book-form {
 		width: unset;

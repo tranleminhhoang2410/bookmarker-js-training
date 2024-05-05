@@ -13,6 +13,7 @@ import { confirmDialogTemplate } from './../templates/confirm-dialog';
 import { modalContentTemplate } from '../templates/modal-content';
 import { toastTemplate } from '../templates/toast';
 import { bookFormTemplate } from '../templates/book-form';
+import { appendErrorMessage, validateField, validateForm } from '../utils/validation';
 
 export default class BookView {
 	constructor() {
@@ -61,6 +62,7 @@ export default class BookView {
 
 			//Get form element
 			const form = getElement('#book-form');
+			const inputElements = getElements('.input-box');
 
 			const fileUpload = getElement('#file-upload');
 			const bookImgPreview = getElement('.book-img-preview');
@@ -81,6 +83,13 @@ export default class BookView {
 				this.selectedBookImageUrl = await getImageUrlHandler(formData);
 			});
 
+			// Handling form inputs for validation
+			inputElements.forEach((input) => {
+				input.addEventListener('input', () => {
+					validateField(input, input.getAttribute('data-field-name'), input.value);
+				});
+			});
+
 			// Get negative buttons from the modal
 			const negativeButton = getElement('#' + BOOK_FORM.NEGATIVE_BUTTON_ID);
 
@@ -99,6 +108,23 @@ export default class BookView {
 				const authors = formData.get('book-authors');
 				const publishedDate = formData.get('book-published-date');
 				const description = formData.get('book-description');
+
+				// validate all fields before submitting
+				let isFormValid = true;
+
+				inputElements.forEach((input) => {
+					const error = validateForm(input.getAttribute('data-field-name'), input.value);
+
+					if (error) {
+						isFormValid = false;
+						appendErrorMessage(input, error);
+					}
+				});
+
+				// Stop execution if the form is not valid
+				if (!isFormValid) {
+					return;
+				}
 
 				const data = {
 					name,
@@ -143,7 +169,6 @@ export default class BookView {
 	};
 
 	displayBooks = (bookList, booksShowing, currentPage) => {
-		console.log(currentPage);
 		while (this.bookList.firstChild) {
 			this.bookList.removeChild(this.bookList.firstChild);
 		}

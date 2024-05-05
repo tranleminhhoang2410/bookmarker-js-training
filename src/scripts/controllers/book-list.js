@@ -34,10 +34,11 @@ export default class BookListController {
 	};
 
 	handleAddBook = async (data) => {
-		const response = await this.bookModel.addBook(data);
-		this.renderBooks.unshift(response);
-		this.originalBooks = [...this.renderBooks];
-		this.updateBookList(this.originalBooks);
+		console.log(data);
+		// const response = await this.bookModel.addBook(data);
+		// this.renderBooks.unshift(response);
+		// this.originalBooks = [...this.renderBooks];
+		// this.updateBookList(this.originalBooks);
 	};
 
 	displayBookList = async () => {
