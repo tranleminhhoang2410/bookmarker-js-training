@@ -10,14 +10,26 @@ const rules = {
 	},
 	publishedDate: {
 		isRequired: true,
-		isFutureDate: false
+		isFutureDate: (value) => value && new Date(value) > new Date()
 	},
 	image: {
-		isRequired: true
+		isRequired: true,
+		isValidImageFormat: (url) => {
+			const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp'];
+			const urlLower = url.toLowerCase();
+			const isValidExtension = imageExtensions.some((imageExtension) => urlLower.endsWith('.' + imageExtension));
+
+			const extension = '.' + url.split('.').pop().split('?')[0].split('#')[0];
+
+			return {
+				isValidExtension,
+				extension
+			};
+		}
 	},
 	description: {
 		isRequired: true,
-		maxLength: 500
+		maxLength: 1000
 	}
 };
 
@@ -33,8 +45,8 @@ export const removeErrorMessage = (inputElement) => {
 };
 
 // Hàm validate filed cho một trường đầu vào và xử lý thông báo lỗi
-export const validateField = (inputElement, fieldName, value) => {
-	const errorMessage = validateForm(fieldName, value);
+export const validateField = (inputElement, fieldName, value, validateFieldName) => {
+	const errorMessage = validateForm(fieldName, value, validateFieldName);
 
 	if (errorMessage) {
 		appendErrorMessage(inputElement, errorMessage);
@@ -43,30 +55,32 @@ export const validateField = (inputElement, fieldName, value) => {
 	}
 };
 
-export const validateForm = (fieldName, value) => {
+export const validateForm = (fieldName, value, validateFieldName) => {
 	const fieldRules = rules[fieldName];
+	let errorMessage = '';
 
-	// Kiểm tra bắt buộc nhập
+	// Check required file
 	if (fieldRules.isRequired && !value.trim()) {
-		return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required!`;
+		errorMessage = VALIDATION.MESSAGE.IS_REQUIRED(validateFieldName);
+	} else {
+		// Check max-length
+		if (fieldRules.maxLength && value.trim().length > fieldRules.maxLength) {
+			errorMessage = VALIDATION.MESSAGE.MAX_LENGTH(validateFieldName, fieldRules.maxLength);
+		}
+
+		// Check future date
+		if (fieldRules.isFutureDate && fieldRules.isFutureDate(value)) {
+			errorMessage = VALIDATION.MESSAGE.IS_FUTURE_DATE(validateFieldName);
+		}
+
+		// Check valid iamge
+		if (fieldRules.isValidImageFormat) {
+			const validationResult = fieldRules.isValidImageFormat(value);
+			if (!validationResult.isValidExtension) {
+				errorMessage = VALIDATION.MESSAGE.IS_VALID_FORMAT(validateFieldName, validationResult.extension);
+			}
+		}
 	}
 
-	// Kiểm tra độ dài tối đa
-	if (fieldRules.maxLength && value.trim().length > fieldRules.maxLength) {
-		return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} must be at most ${
-			fieldRules.maxLength
-		} characters!`;
-	}
-
-	// Kiểm tra URL hình ảnh
-	if (fieldName === 'imageUrl' && fieldRules.isRequired && !isValidImageUrl(value)) {
-		return 'Invalid image URL!';
-	}
-
-	// Kiểm tra ngày xuất bản trong tương lai nếu có giá trị được chọn
-	if (fieldName === 'publishedDate' && value && new Date(value) > new Date()) {
-		return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} must be in the past!`;
-	}
-
-	return ''; // Trả về chuỗi rỗng nếu không có lỗi
+	return errorMessage;
 };

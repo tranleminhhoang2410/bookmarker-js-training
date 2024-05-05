@@ -27,27 +27,6 @@ export default class BookView {
 		this.selectedBookImageUrl = '';
 	}
 
-	bindGetImageUrl = (handler) => {
-		this.mainContent.addEventListener('change', (e) => {
-			if (e.target.type === 'file') {
-				const bookImgPreview = getElement('.book-img-preview');
-				const bookNamePreview = getElement('.book-name-preview');
-				const uploadBtn = getElement('.btn-upload');
-				const file = e.target.files[0];
-
-				bookNamePreview.innerHTML = `Selected: ${e.target.files[0].name}`;
-				bookImgPreview.src = URL.createObjectURL(e.target.files[0]);
-				bookImgPreview.style = 'width: 96px; height: 116px';
-				uploadBtn.style = 'opacity: 0';
-
-				const formData = new FormData();
-				formData.append('image', file);
-
-				handler(formData);
-			}
-		});
-	};
-
 	bindAddBook = (getImageUrlHandler, addHandler) => {
 		this.createBtn.addEventListener('click', (e) => {
 			e.preventDefault();
@@ -86,7 +65,8 @@ export default class BookView {
 			// Handling form inputs for validation
 			inputElements.forEach((input) => {
 				input.addEventListener('input', () => {
-					validateField(input, input.getAttribute('data-field-name'), input.value);
+					const validateFieldName = input.getAttribute('data-field-validate');
+					validateField(input, input.getAttribute('data-field-name'), input.value, validateFieldName);
 				});
 			});
 
@@ -113,7 +93,11 @@ export default class BookView {
 				let isFormValid = true;
 
 				inputElements.forEach((input) => {
-					const error = validateForm(input.getAttribute('data-field-name'), input.value);
+					const error = validateForm(
+						input.getAttribute('data-field-name'),
+						input.value,
+						input.getAttribute('data-field-validate')
+					);
 
 					if (error) {
 						isFormValid = false;
@@ -292,6 +276,15 @@ export default class BookView {
 				this.mainContent.appendChild(bookFormModal);
 
 				const form = getElement('#book-form');
+				const inputElements = getElements('.input-box');
+
+				// Handling form inputs for validation
+				inputElements.forEach((input) => {
+					input.addEventListener('input', () => {
+						const validateFieldName = input.getAttribute('data-field-validate');
+						validateField(input, input.getAttribute('data-field-name'), input.value, validateFieldName);
+					});
+				});
 
 				// Handling the 'Save' button click within the form
 				form.addEventListener('submit', (e) => {
@@ -303,6 +296,27 @@ export default class BookView {
 					const authors = formData.get('book-authors');
 					const publishedDate = formData.get('book-published-date');
 					const description = formData.get('book-description');
+
+					// validate all fields before submitting
+					let isFormValid = true;
+
+					inputElements.forEach((input) => {
+						const error = validateForm(
+							input.getAttribute('data-field-name'),
+							input.value,
+							input.getAttribute('data-field-validate')
+						);
+
+						if (error) {
+							isFormValid = false;
+							appendErrorMessage(input, error);
+						}
+					});
+
+					// Stop execution if the form is not valid
+					if (!isFormValid) {
+						return;
+					}
 
 					const data = {
 						name,
